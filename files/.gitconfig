@@ -1,0 +1,35 @@
+[core]
+	editor = vim
+[user]
+	name = michael-christen
+	email = mchristen96@gmail.com
+[alias]
+	st = status --short --branch
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lo = log --oneline
+	lg = log -p
+	log-detail = log -p
+	commend = commit --amend --no-edit
+	grog = log --graph --oneline --abbrev-commit --decorate --all
+	graph = log --graph --oneline --all
+	stsh = stash --keep-index
+	staash = stash --include-untracked
+	staaash = stash --all
+	please = push --force-with-lease
+	clean-local = !git br --merged master | grep -v master | xargs git br -d
+	list-local = !git br --merged master | grep -v master
+	clean-remote = "!for b in   origin/HEAD -> origin/master\n  origin/first_branch\n  origin/git_config\n  origin/master; do echo  | awk '{split(sh,a,\"/\"); print a[2]}' | xargs git push origin --delete; done"
+    list-remote = "!for b in $(git br -r --merged master); do echo $b | awk '{split($0,a,\"/\"); print a[2]}'; done"
+[credential]
+	helper = cache
+[color]
+	ui = auto
+	status = auto
+	branch = auto
+	diff   = auto
+	interactive = auto
+[push]
+	default = simple
