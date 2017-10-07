@@ -18,5 +18,19 @@ should be a more lightweight approach.
 ## Architecture
 
 * Configuration files
+  * Editor:
+    * `.editorconfig`
+    * `.vim/`
+      * `.vimrc`
 * Configuration script: simple script to link the various files / directories
   into the home directory.
+
+
+## Resources:
+
+### Vim
+
+* [Learning Vim Article](https://medium.com/@peterxjang/how-to-learn-vim-a-four-week-plan-cd8b376a9b85)
+that made me reevaluate my configuration setup
+* [Vim Directory Structure](http://www.panozzaj.com/blog/2011/09/09/vim-directory-structure/)
+* [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
