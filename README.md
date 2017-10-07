@@ -18,13 +18,22 @@ should be a more lightweight approach.
 ## Architecture
 
 * Configuration files
-  * Editor:
-    * `.editorconfig`
-    * `.vim/`
-      * `.vimrc`
 * Configuration script: simple script to link the various files / directories
   into the home directory.
 
+### Configuration Files
+
+* Shell:
+  * `.profile`
+  * `.bashrc`
+  * `.bash_aliases`
+  * `.gitconfig`
+  * __Stretch Goal__: Install useful scripts
+  * Tmux Configuration
+* Editor:
+  * `.vim/`
+    * `.vimrc`
+  * `.editorconfig`
 
 ## Resources:
 
@@ -34,3 +43,4 @@ should be a more lightweight approach.
 that made me reevaluate my configuration setup
 * [Vim Directory Structure](http://www.panozzaj.com/blog/2011/09/09/vim-directory-structure/)
 * [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
+* [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
