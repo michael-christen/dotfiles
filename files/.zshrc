@@ -82,6 +82,9 @@ export EDITOR='vim'
 # For a full list of active aliases, run `alias`.
 source $HOME/.aliases
 
+# Set personal PATH and ENV overrides
+source $HOME/.profile
+
 # Disable Shared History
 # unsetopt inc_append_history
 unsetopt share_history
