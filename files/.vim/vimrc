@@ -16,7 +16,7 @@ set expandtab        " tabs are spaces, TODO: check Makefile
 " }}}
 
 " UI Config {{{
-" set number           " show line numbers
+set number           " show line numbers
 set relativenumber   " show number relative to current line
 set showcmd          " show command in bottom bar
 set cursorline       " highlight current row of text
