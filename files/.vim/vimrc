@@ -2,8 +2,10 @@
 
 " Colors {{{
 syntax enable        " enable syntax processing
-" set background=dark
-" colorscheme solarized
+
+" Configure solarized
+set background=dark
+colorscheme solarized
 " colorscheme badwolf  " neat colorscheme, alternative to solarized
 " }}}
 

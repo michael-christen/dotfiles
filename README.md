@@ -34,6 +34,9 @@ should be a more lightweight approach.
   * `.gitconfig`
   * __Stretch Goal__: Install useful scripts
   * `.tmux.conf`
+    * Consider using [TPM](https://github.com/tmux-plugins/tpm) for managing
+      tmux plugins.
+    * tmux-resurrect / tmux-continuum
 * Editor:
   * `.vim/`
     * `.vimrc`
