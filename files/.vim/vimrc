@@ -4,10 +4,9 @@
 syntax enable        " enable syntax processing
 
 " Configure solarized
-" let g:solarized_termcolors=256
-" set background=dark
-" colorscheme solarized
-colorscheme badwolf  " neat colorscheme, alternative to solarized
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
 " }}}
 
 " Whitespace {{{
@@ -70,6 +69,15 @@ if exists('$TMUX')
 else
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" Color configuration
+if &term =~ '^screen'
+    " term 256color doesn't work, so have different setting
+    set term=screen-256color
+    set ttymouse=xterm2
+else
+    set term=xterm-256color
 endif
 " }}}
 
