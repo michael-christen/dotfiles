@@ -24,6 +24,7 @@ set cursorcolumn     " highlight current column of text
 set wildmenu         " visual autocomplete for command menu
 set lazyredraw       " redraw only when we needto (faster macros!)
 set showmatch        " highlight matching brackets
+set ruler            " Show line and column in status bar
 filetype indent on   " load filetype-specific indent files
 " }}}
 
