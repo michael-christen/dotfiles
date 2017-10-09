@@ -20,3 +20,34 @@ should be a more lightweight approach.
 * Configuration files
 * Configuration script: simple script to link the various files / directories
   into the home directory.
+
+### Configuration Files
+
+* Shell:
+  * `.profile`
+    * This should define all of the custom environment variables for a system,
+      so will be left out of this version control system. See
+      [this post](https://superuser.com/questions/183845/which-setup-files-should-be-used-for-setting-up-environment-variables-with-bash/183956#183956)
+      about it.
+  * `.bashrc`
+  * `.bash_aliases`
+  * `.gitconfig`
+  * __Stretch Goal__: Install useful scripts
+  * `.tmux.conf`
+    * Consider using [TPM](https://github.com/tmux-plugins/tpm) for managing
+      tmux plugins.
+    * tmux-resurrect / tmux-continuum
+* Editor:
+  * `.vim/`
+    * `.vimrc`
+  * `.editorconfig`
+
+## Resources:
+
+### Vim
+
+* [Learning Vim Article](https://medium.com/@peterxjang/how-to-learn-vim-a-four-week-plan-cd8b376a9b85)
+that made me reevaluate my configuration setup
+* [Vim Directory Structure](http://www.panozzaj.com/blog/2011/09/09/vim-directory-structure/)
+* [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
+* [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
