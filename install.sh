@@ -3,14 +3,14 @@
 echo "Linking configuration files into $HOME";
 
 for f in $(find files/ -mindepth 1 -maxdepth 1); do
-  f_base = basename $f;
-  if [ "$(readlink $HOME/$f_base)" -ef "$f" ]; then
-      echo "${f} already linked"
-  else
-      echo "Linking ${f} into home directory";
-      # Use -sf if desire to force override
-      ln -s -t $HOME/ $(realpath $f);
-  fi
+    f_base=$(basename $f);
+    if [ "$(readlink $HOME/$f_base)" -ef "$f" ]; then
+        echo "${f} already linked"
+    else
+        echo "Linking ${f} into home directory";
+        # Use -sf if desire to force override
+        ln -s -t $HOME/ $(realpath $f);
+    fi
 done
 
 
