@@ -12,7 +12,7 @@ colorscheme solarized
 " Whitespace {{{
 set tabstop=4        " number of visual spaces per TAB
 set softtabstop=4    " number of spaces in TAB when editing
-set expandtab        " tabs are spaces, TODO: check Makefile
+set expandtab        " tabs are spaces
 " }}}
 
 " UI Config {{{
@@ -24,7 +24,7 @@ set cursorcolumn     " highlight current column of text
 set wildmenu         " visual autocomplete for command menu
 set lazyredraw       " redraw only when we needto (faster macros!)
 set showmatch        " highlight matching brackets
-filetype indent on   " load filetype-specific indent files NOTE: this should leave Makefile alone
+filetype indent on   " load filetype-specific indent files
 " }}}
 
 " Searching {{{
@@ -131,6 +131,7 @@ augroup configgroup
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.mk setlocal noexpandtab
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
