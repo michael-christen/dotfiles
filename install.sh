@@ -9,3 +9,7 @@ done
 # Install tools
 # Oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+# Configure zsh as default shell
+chsh -s $(which zsh)
+# Reload zsh config
+source ~/.zshrc
