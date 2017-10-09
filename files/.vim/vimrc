@@ -4,6 +4,7 @@
 syntax enable        " enable syntax processing
 
 " Configure solarized
+let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 " colorscheme badwolf  " neat colorscheme, alternative to solarized
@@ -50,8 +51,8 @@ nnoremap gV `[v`]
 
 " Shortcuts {{{
 let mapleader=","       " leader is comma vs '\'
-" jk is escape, alternative = ;;
-inoremap jk <esc>
+" ;; is escape
+inoremap ;; <esc>
 " save vim session
 nnoremap <leader>s :mksession<CR>
 " Quickly navigate windows
