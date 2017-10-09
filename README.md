@@ -25,11 +25,15 @@ should be a more lightweight approach.
 
 * Shell:
   * `.profile`
+    * This should define all of the custom environment variables for a system,
+      so will be left out of this version control system. See
+      [this post](https://superuser.com/questions/183845/which-setup-files-should-be-used-for-setting-up-environment-variables-with-bash/183956#183956)
+      about it.
   * `.bashrc`
   * `.bash_aliases`
   * `.gitconfig`
   * __Stretch Goal__: Install useful scripts
-  * Tmux Configuration
+  * `.tmux.conf`
 * Editor:
   * `.vim/`
     * `.vimrc`
