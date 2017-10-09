@@ -5,3 +5,7 @@ for f in $(find files/ -mindepth 1 -maxdepth 1); do
   # Use -sf if desire to force override
   ln -s -t ~/ $(realpath $f);
 done
+
+# Install tools
+# Oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
