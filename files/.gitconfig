@@ -1,5 +1,6 @@
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore_global
 [user]
 	name = michael-christen
 	email = mchristen96@gmail.com
