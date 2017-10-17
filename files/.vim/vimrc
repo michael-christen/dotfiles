@@ -1,6 +1,8 @@
 " Heavy inspiration from: https://dougblack.io/words/a-good-vimrc.html
 
 " Plugins {{{
+" Valloric/YouCompleteMe
+" vim-syntastic/syntastic
 " surround
 " repeat
 " objtext
@@ -39,6 +41,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 "
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+" load filetype-specific indent files NOTE: this should leave Makefile alone
+" enable builtin filetype plugin
 filetype plugin indent on    " load plugin indent files
 " Brief help
 " :PluginList       - lists configured plugins
@@ -72,11 +76,11 @@ set relativenumber   " show number relative to current line
 set showcmd          " show command in bottom bar
 set cursorline       " highlight current row of text
 set cursorcolumn     " highlight current column of text
+set path+=**         " Enable recursive file searching of subdirectories
 set wildmenu         " visual autocomplete for command menu
 set lazyredraw       " redraw only when we needto (faster macros!)
 set showmatch        " highlight matching brackets
 set ruler            " Show line and column in status bar
-filetype indent on   " load filetype-specific indent files
 " }}}
 
 " Searching {{{
@@ -98,6 +102,14 @@ nnoremap gV `[v`]
 " Disable ^ $
 " nnoremap $ <nop>
 " nnoremap ^ <nop>
+
+" File browsing utilizing netrw buitin
+let g:netrw_banner=0       " disable annoying banner
+let g:netrw_browse_split=4 " open in prior window
+let g:netrw_altv=1         " open splits to the right
+let g:netrw_liststyle=3    " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\/\s\s\)\zs\.\S\+'
 " }}}
 
 " Shortcuts {{{
@@ -113,6 +125,8 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " Add line below
 nnoremap <CR> o<ESC>k
+" Configure ctags for tag jumping
+command! MakeTags !ctags -R .
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
@@ -131,6 +145,10 @@ if &term =~ '^screen'
 else
     set term=xterm-256color
 endif
+" }}}
+
+" Snippets {{{
+nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 " }}}
 
 " Folding {{{
