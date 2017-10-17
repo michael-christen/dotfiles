@@ -26,7 +26,7 @@ ZSH_THEME="blinks"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -88,3 +88,6 @@ source $HOME/.profile
 # Disable Shared History
 # unsetopt inc_append_history
 unsetopt share_history
+
+# Enable for loop splitting of strings
+setopt shwordsplit
