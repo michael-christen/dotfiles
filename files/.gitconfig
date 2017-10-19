@@ -22,8 +22,10 @@
 	please = push --force-with-lease
 	clean-local = !git br --merged master | grep -v master | xargs git br -d
 	list-local = !git br --merged master | grep -v master
-	clean-remote = "!for b in   origin/HEAD -> origin/master\n  origin/first_branch\n  origin/git_config\n  origin/master; do echo  | awk '{split(sh,a,\"/\"); print a[2]}' | xargs git push origin --delete; done"
-    list-remote = "!for b in $(git br -r --merged master); do echo $b | awk '{split($0,a,\"/\"); print a[2]}'; done"
+	clean-remote = "!for b in $(git br -r --merged master); do echo $b | grep -v master | awk '{split($0,a,\"/\"); print a[2]}' | xargs git push origin --delete; done"
+    list-remote = "!for b in $(git br -r --merged master); do echo $b | grep -v master | awk '{split($0,a,\"/\"); print a[2]}'; done"
+    # Update the remote references with origin
+    update = fetch -p origin
 [credential]
 	helper = cache
 [color]
