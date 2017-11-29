@@ -1,7 +1,9 @@
 #!/bin/sh
 
-echo "Linking configuration files into $HOME";
+echo "Updating any git submodules"
+git submodule update --init --recursive
 
+echo "Linking configuration files into $HOME";
 for f in $(find files -mindepth 1 -maxdepth 1); do
     f_base=$(basename $f);
     if [ "$(readlink $HOME/$f_base)" -ef "$f" ]; then
