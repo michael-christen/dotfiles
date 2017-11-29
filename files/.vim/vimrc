@@ -1,7 +1,6 @@
 " Heavy inspiration from: https://dougblack.io/words/a-good-vimrc.html
 
 " Plugins {{{
-" vim-syntastic/syntastic
 " surround
 " repeat
 " objtext
@@ -37,12 +36,12 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'tmhedberg/SimplyFold'
 " let g:SimplyFold_docstring_preview=1
-" Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
 " Plugin 'Valloric/YouCompleteMe'
 " let g:ycm_autoclose_preview_window_after_completion=1
 " map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" Plugin 'vim-syntastic/syntastic'
-" Plugin 'nvie/vim-flake8'
 " Plugin 'jnurmine/Zenburn'
 " ag.vim  " Source searching!
 " open ag.vim
@@ -77,8 +76,15 @@ let python_highlight_all=1
 " }}}
 
 " Syntax {{{
-" let g:syntastic_python_checkers = ['flake8']
-" let g:syntastic_python_flake8_args = '--ignore=E,W,F403'
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore=E,W,F403'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " }}}
 
 " Whitespace {{{
