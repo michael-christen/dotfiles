@@ -51,3 +51,10 @@ that made me reevaluate my configuration setup
 * [Vim Directory Structure](http://www.panozzaj.com/blog/2011/09/09/vim-directory-structure/)
 * [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
 * [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
+
+## Manual Steps When Updating
+
+### TMux
+
+1. `tmux source ~/.tmux.conf`
+1. `<prefix> + I`
