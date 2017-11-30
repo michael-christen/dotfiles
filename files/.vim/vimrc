@@ -86,6 +86,8 @@ let g:syntastic_check_on_wq = 0
 
 " Ack
 nnoremap <leader>a :Ack
+" Find word under cursor
+nnoremap <leader>f :Ack<CR>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
