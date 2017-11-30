@@ -113,7 +113,6 @@ set mouse=a          " Enable dragging of splits
 set incsearch        " search as characters are entered
 set hlsearch         " highlight matches
 " turn off search highlighting
-" TODO: This stopped working on *nix
 nnoremap <leader><space> :nohlsearch<CR>
 " }}}
 
