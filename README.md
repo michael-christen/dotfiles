@@ -52,6 +52,10 @@ that made me reevaluate my configuration setup
 * [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
 * [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
 
+## Manual Steps for installing
+
+1. May need to install `ag`
+
 ## Manual Steps When Updating
 
 ### TMux
