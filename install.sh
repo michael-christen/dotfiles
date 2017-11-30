@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Updating any git submodules"
 git submodule update --init --recursive
@@ -32,13 +32,6 @@ else
     echo "You may have to restart your terminal for changes to take effect";
 fi
 
-if [ "$(uname)" == "Darwin" ]; then
-  brew install the_silver_searcher;
-elif [ "$(uname)" == "Linux" ]; then
-  apt-get install silversearcher-ag;
-fi
-
-
 # Generate SSH Key
 # From
 # https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
@@ -49,3 +42,9 @@ if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
     eval "$(ssh-agent -s)";
     ssh-add $HOME/.ssh/id_rsa;
 fi
+
+# Install vim plugins
+# NOTE: UI will pop up
+echo "Installing vim plugins";
+vim -c 'PluginInstall' -c 'qa!';
+echo "Finished installing vim plugins";

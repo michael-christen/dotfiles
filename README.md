@@ -52,13 +52,14 @@ that made me reevaluate my configuration setup
 * [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
 * [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
 
-## Manual Steps for installing
+## How to Update
 
-1. May need to install `ag`
+1. Run `sudo ./install_packages.sh` to install system packages
+1. Run `./install.sh` to install files and plugins
 
-## Manual Steps When Updating
+### Additional Steps When Updating
 
-### TMux
+#### TMux
 
 1. `tmux source ~/.tmux.conf`
 1. `<prefix> + I`
