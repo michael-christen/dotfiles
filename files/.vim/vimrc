@@ -36,7 +36,12 @@ Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'rust-lang/rust.vim'
 " Plugin 'tmhedberg/SimplyFold'
 " let g:SimplyFold_docstring_preview=1
+
+" Catch syntax / lint errors
+" :lopen shows detailed errors
+" :lnext goes to next error
 Plugin 'vim-syntastic/syntastic'
+
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'nvie/vim-flake8'
 " Plugin 'Valloric/YouCompleteMe'
@@ -75,14 +80,13 @@ colorscheme solarized
 let python_highlight_all=1
 " }}}
 
-" Syntax {{{
+" Plugin Options {{{
+
+" Syntastic
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--ignore=E,W,F403'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 1  " Populate LOC by default (don't require :Errors)
+" let g:syntastic_auto_loc_list = 1             " Show detailed errors, or :lopen
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " }}}
