@@ -1,14 +1,9 @@
 " Heavy inspiration from: https://dougblack.io/words/a-good-vimrc.html
 
 " Plugins {{{
-" Valloric/YouCompleteMe
-" vim-syntastic/syntastic
 " surround
 " repeat
 " objtext
-" ag.vim  " Source searching!
-" open ag.vim
-" nnoremap <leader>a :Ag
 " gundo.vim  " Display undo tree in graphical form
 " ctrlp.vim  " Fuzzy file searching vs commandt.vim
 " CtrlP settings
@@ -38,6 +33,24 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'benmills/vimux'
 " Plugin 'tpope/vim-dispatch'
+" Plugin 'rust-lang/rust.vim'
+" Plugin 'tmhedberg/SimplyFold'
+" let g:SimplyFold_docstring_preview=1
+
+" Catch syntax / lint errors
+" :lopen shows detailed errors
+" :lnext goes to next error
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+
+Plugin 'vim-scripts/indentpython.vim'
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" Plugin 'jnurmine/Zenburn'
+" ag.vim  " Source searching!
+" open ag.vim
+" nnoremap <leader>a :Ag
 "
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -64,10 +77,22 @@ set background=dark
 colorscheme solarized
 " }}}
 
+" Plugin Options {{{
+
+" Syntastic
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore=E,W,F403'
+let g:syntastic_always_populate_loc_list = 1  " Populate LOC by default (don't require :Errors)
+" let g:syntastic_auto_loc_list = 1             " Show detailed errors, or :lopen
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+" }}}
+
 " Whitespace {{{
 set tabstop=4        " number of visual spaces per TAB
 set softtabstop=4    " number of spaces in TAB when editing
 set expandtab        " tabs are spaces
+set fileformat=unix  " Unix file types
 " }}}
 
 " UI Config {{{
@@ -114,6 +139,7 @@ let g:netrw_list_hide.=',\(^\/\s\s\)\zs\.\S\+'
 " }}}
 
 " Shortcuts {{{
+" TODO: This doesn't work
 let mapleader=","       " leader is comma vs '\'
 " ;; is escape
 inoremap ;; <esc>
@@ -128,6 +154,7 @@ nnoremap <c-l> <c-w>l
 nnoremap <CR> o<ESC>k
 " Configure ctags for tag jumping
 command! MakeTags !ctags -R .
+command! MakePTags !ctags -R . $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
@@ -179,6 +206,9 @@ augroup configgroup
     autocmd FileType ruby setlocal softtabstop=2
     autocmd FileType ruby setlocal commentstring=#\ %s
     autocmd FileType python setlocal commentstring=#\ %s
+    autocmd FileType python setlocal shiftwidth=4
+    autocmd FileType python setlocal textwidth=79
+    autocmd FileType python setlocal autoindent
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
     autocmd BufEnter Makefile setlocal noexpandtab
@@ -187,6 +217,18 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
 augroup END
+" }}}
+
+" Language overrides {{{
+" Enable python python with active virtualenv
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
 " }}}
 
 " Backups {{{
