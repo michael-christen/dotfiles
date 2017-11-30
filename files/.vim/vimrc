@@ -158,6 +158,7 @@ nnoremap <c-l> <c-w>l
 nnoremap <CR> o<ESC>k
 " Configure ctags for tag jumping
 command! MakeTags !ctags -R .
+command! MakePTags !ctags -R . $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
 
 " allows cursor change in tmux mode
 if exists('$TMUX')
