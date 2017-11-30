@@ -220,7 +220,7 @@ augroup END
 " }}}
 
 " Language overrides {{{
-" python with virtualenv support
+" Enable python python with active virtualenv
 py << EOF
 import os
 import sys
