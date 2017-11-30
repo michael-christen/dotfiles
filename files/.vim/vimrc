@@ -75,9 +75,6 @@ syntax enable        " enable syntax processing
 let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
-
-" Python specific
-let python_highlight_all=1
 " }}}
 
 " Plugin Options {{{
