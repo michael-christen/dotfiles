@@ -48,8 +48,10 @@ Plugin 'vim-scripts/indentpython.vim'
 " let g:ycm_autoclose_preview_window_after_completion=1
 " map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Plugin 'jnurmine/Zenburn'
+
 Plugin 'mileszs/ack.vim'
-nnoremap <leader>a :Ack
+
+Plugin 'kien/ctrlp.vim'  " Fuzzy file searching vs commandt.vim
 "
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -87,6 +89,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Ack
+nnoremap <leader>a :Ack
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
