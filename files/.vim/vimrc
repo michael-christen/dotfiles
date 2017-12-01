@@ -83,6 +83,8 @@ let g:syntastic_always_populate_loc_list = 1  " Populate LOC by default (don't r
 " let g:syntastic_auto_loc_list = 1             " Show detailed errors, or :lopen
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" Set this, run :SyntasticCheck, then :mes to find issues
+" let g:syntastic_debug = 3
 
 " Ack
 nnoremap <leader>a :Ack
