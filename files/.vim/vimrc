@@ -87,7 +87,7 @@ let g:syntastic_check_on_wq = 0
 " let g:syntastic_debug = 3
 
 " Ack
-nnoremap <leader>a :Ack
+nnoremap <leader>a :Ack 
 " Find word under cursor
 nnoremap <leader>f :Ack<CR>
 if executable('ag')
