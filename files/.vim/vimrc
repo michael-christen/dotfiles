@@ -27,28 +27,43 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 " Plugin 'benmills/vimux'
 " Plugin 'tpope/vim-dispatch'
-" Plugin 'rust-lang/rust.vim'
 " Plugin 'tmhedberg/SimplyFold'
 " let g:SimplyFold_docstring_preview=1
 
-" Catch syntax / lint errors
-" :lopen shows detailed errors
-" :lnext goes to next error
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
-
-Plugin 'vim-scripts/indentpython.vim'
-" Plugin 'Valloric/YouCompleteMe'
-" let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " Plugin 'jnurmine/Zenburn'
 
+"
+" Searching plugins
+"
+"
 Plugin 'mileszs/ack.vim'
 
 " Fuzzy file searching
 " <c-p> opens terminal for searching for files
 Plugin 'ctrlpvim/ctrlp.vim'
+
 "
+" Language specific plugins
+"
+
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" Python
+" Catch syntax / lint errors
+" :lopen shows detailed errors
+" :lnext goes to next error
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/indentpython.vim'
+
+" Jinja
+Plugin 'Glench/Vim-Jinja2-Syntax'
+
+" Rust
+" Plugin 'rust-lang/rust.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 " load filetype-specific indent files NOTE: this should leave Makefile alone
@@ -236,6 +251,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal tabstop=2
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd BufRead,BUfNewFile *.txt set syntax=jinja
 augroup END
 " }}}
 
