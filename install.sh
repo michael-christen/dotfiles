@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Updating any git submodules"
 git submodule update --init --recursive
@@ -42,3 +42,9 @@ if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
     eval "$(ssh-agent -s)";
     ssh-add $HOME/.ssh/id_rsa;
 fi
+
+# Install vim plugins
+# NOTE: UI will pop up
+echo "Installing vim plugins";
+vim -c 'PluginInstall' -c 'qa!';
+echo "Finished installing vim plugins";
