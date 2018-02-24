@@ -89,6 +89,10 @@ set background=dark
 colorscheme solarized
 " }}}
 
+" Globals {{{
+let mapleader=","       " leader is comma vs '\'
+" }}}
+
 " Plugin Options {{{
 
 " Syntastic
@@ -174,8 +178,6 @@ let g:netrw_list_hide.=',\(^\/\s\s\)\zs\.\S\+'
 " }}}
 
 " Shortcuts {{{
-" TODO: This doesn't work
-let mapleader=","       " leader is comma vs '\'
 " ;; is escape
 inoremap ;; <esc>
 " save vim session
@@ -303,4 +305,15 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunc
 
+" }}}
+
+" Notes {{{
+"
+" Navigation:
+" - z can be used for moving screen without cursor
+"   - zz middle
+"   - zt top
+"   - zb bottom
+"   - <ctrl>-y move up 1
+"   - <ctrl>-e move dn 1
 " }}}
