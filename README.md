@@ -52,6 +52,14 @@ that made me reevaluate my configuration setup
 * [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
 * [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
 
+## How to Setup
+
+- You may need to configure your default shell to be `zsh`, to do so run:
+
+```
+chsh -s /bin/zsh
+```
+
 ## How to Update
 
 1. Run `sudo ./install_packages.sh` to install system packages
