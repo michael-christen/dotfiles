@@ -132,6 +132,7 @@ set tabstop=4        " number of visual spaces per TAB
 set softtabstop=4    " number of spaces in TAB when editing
 set expandtab        " tabs are spaces
 set fileformat=unix  " Unix file types
+set textwidth=79     " Standard number of characters per line
 " }}}
 
 " UI Config {{{
