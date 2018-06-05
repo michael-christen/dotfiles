@@ -189,7 +189,9 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " Add line below
 nnoremap <CR> o<ESC>k
+
 " Configure ctags for tag jumping
+" ctrl-] jumps to definition
 command! MakeTags !ctags -R .
 command! MakePTags !ctags --exclude=\*.js -R . $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
 
