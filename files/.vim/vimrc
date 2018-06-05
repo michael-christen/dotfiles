@@ -215,6 +215,7 @@ endif
 " Snippets {{{
 nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 nnoremap <leader>pact :-1read $HOME/.vim/.skeleton.pact<CR>5jA
+nnoremap <leader>pyscript :-1read $HOME/.vim/.skeleton.pyscript<CR>3jA
 " }}}
 
 " Folding {{{
