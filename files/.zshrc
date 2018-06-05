@@ -104,3 +104,6 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
+
+# Don't confirm when deleting files
+setopt rm_star_silent
