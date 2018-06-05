@@ -20,6 +20,7 @@
 	staash = stash --include-untracked
 	staaash = stash --all
 	please = push --force-with-lease
+	clear = !git checkout master && git pull && git clean-local
 	clean-local = !git br --merged master | grep -v master | xargs git br -d
 	list-local = !git br --merged master | grep -v master
 	clean-remote = "!for b in $(git br -r --merged master); do echo $b | grep -v master | awk '{split($0,a,\"/\"); print a[2]}' | xargs git push origin --delete; done"
