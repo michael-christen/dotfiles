@@ -136,17 +136,18 @@ set textwidth=79     " Standard number of characters per line
 " }}}
 
 " UI Config {{{
-set number           " show line numbers
-set relativenumber   " show number relative to current line
-set showcmd          " show command in bottom bar
-set cursorline       " highlight current row of text
-set cursorcolumn     " highlight current column of text
-set path+=**         " Enable recursive file searching of subdirectories
-set wildmenu         " visual autocomplete for command menu
-set lazyredraw       " redraw only when we needto (faster macros!)
-set showmatch        " highlight matching brackets
-set ruler            " Show line and column in status bar
-set mouse=a          " Enable dragging of splits
+set number                     " show line numbers
+set relativenumber             " show number relative to current line
+set showcmd                    " show command in bottom bar
+set cursorline                 " highlight current row of text
+set cursorcolumn               " highlight current column of text
+set path+=**                   " Enable recursive file searching of subdirectories
+set wildmenu                   " visual autocomplete for command menu
+set lazyredraw                 " redraw only when we needto (faster macros!)
+set showmatch                  " highlight matching brackets
+set ruler                      " Show line and column in status bar
+set mouse=a                    " Enable dragging of splits
+set backspace=indent,eol,start " Ensure backspace can go before the insert
 " }}}
 
 " Searching {{{
