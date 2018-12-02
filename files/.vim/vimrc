@@ -130,7 +130,6 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 " Whitespace {{{
 set tabstop=4        " number of visual spaces per TAB
 set softtabstop=4    " number of spaces in TAB when editing
-set expandtab        " tabs are spaces
 set fileformat=unix  " Unix file types
 set textwidth=79     " Standard number of characters per line
 " }}}
@@ -220,6 +219,7 @@ endif
 nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
 nnoremap <leader>pact :-1read $HOME/.vim/.skeleton.pact<CR>5jA
 nnoremap <leader>pyscript :-1read $HOME/.vim/.skeleton.pyscript<CR>3jA
+nnoremap <leader>chead :-1read $HOME/.vim/.skeleton.cheddar<CR>10lC
 " }}}
 
 " Folding {{{
@@ -236,6 +236,9 @@ augroup configgroup
     autocmd!
     autocmd VimEnter * highlight clear SignColumn
     autocmd BufWritePre *.php,*.py,*.js,*.jsx,*.txt,*.hs,*.java,*.md call <SID>StripTrailingWhitespaces()
+    autocmd FileType c setlocal shiftwidth=2
+    autocmd FileType c setlocal tabstop=2    " number of visual spaces per TAB
+    autocmd FileType c setlocal noexpandtab
     autocmd FileType java setlocal noexpandtab
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
@@ -251,6 +254,7 @@ augroup configgroup
     autocmd FileType python setlocal commentstring=#\ %s
     autocmd FileType python setlocal shiftwidth=4
     autocmd FileType python setlocal textwidth=79
+    autocmd FileType python setlocal expandtab        " tabs are spaces
     autocmd FileType python setlocal autoindent
     autocmd BufEnter *.cls setlocal filetype=java
     autocmd BufEnter *.zsh-theme setlocal filetype=zsh
