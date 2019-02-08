@@ -1,0 +1,6 @@
+alias pxml="python -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print xml.dom.minidom.parseString(s).toprettyxml()'"
+alias announce='afplay /System/Library/Sounds/Glass.aiff'
+alias evaluate='if [ $? -ne 0 ]; then afplay /System/Library/Sounds/Sosumi.aiff; else afplay /System/Library/Sounds/Glass.aiff; fi; echo '
+alias g='git'
+alias pytree="tree -I '*.pyc|__init__.py|__pycache__|node_modules'"
+alias fab="fab -f /Users/mchristen/Documents/dev/puppetry/fabfile.py"
