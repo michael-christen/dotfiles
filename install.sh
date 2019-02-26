@@ -4,17 +4,7 @@ echo "Updating any git submodules"
 git submodule update --init --recursive
 
 echo "Linking configuration files into $HOME";
-for f in $(find files -mindepth 1 -maxdepth 1); do
-    f_base=$(basename $f);
-    if [ "$(readlink $HOME/$f_base)" -ef "$f" ]; then
-        echo "${f} already linked"
-    else
-        echo "Linking ${f} into home directory";
-        # Use -sf if desire to force override
-        ln -s $(realpath $f) $HOME/;
-    fi
-done
-
+rcup -v
 
 echo "Installing tools";
 # Install tools
