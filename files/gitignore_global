@@ -1,4 +1,9 @@
 *.swp
 *.pid
 .DS_STORE
+.DS_Store
 tags
+*.sublime-project
+*.sublime-workspace
+/.vscode/
+/.Xil/
