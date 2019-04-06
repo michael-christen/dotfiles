@@ -11,6 +11,7 @@
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set encoding=utf-8
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -48,7 +49,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 
 " Plugin 'Valloric/YouCompleteMe'
 " let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Python
 " Catch syntax / lint errors
@@ -63,6 +63,12 @@ Plugin 'Glench/Vim-Jinja2-Syntax'
 
 " Rust
 " Plugin 'rust-lang/rust.vim'
+
+" C/C++
+Plugin 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'java']}
+
+" Completion
+Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -112,6 +118,14 @@ nnoremap <leader>f :Ack<CR>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" vim-clang-format
+autocmd FileType c,cpp,java let g:clang_format#auto_format = 1
+
+" YouCompleteMe
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_extra_conf_globlist = ['~/devel/sw/*', '~/devel/astros2/*']
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " CtrlP settings
 let g:ctrlp_max_files = 0                                         " no limit when scanning files
@@ -238,7 +252,12 @@ augroup configgroup
     autocmd BufWritePre *.php,*.py,*.js,*.jsx,*.txt,*.hs,*.java,*.md call <SID>StripTrailingWhitespaces()
     autocmd FileType c setlocal shiftwidth=2
     autocmd FileType c setlocal tabstop=2    " number of visual spaces per TAB
-    autocmd FileType c setlocal noexpandtab
+    autocmd FileType c setlocal softtabstop=2    " number of visual spaces per TAB when editing
+    autocmd FileType c setlocal expandtab    " tabs are spaces
+    autocmd FileType cpp setlocal shiftwidth=2
+    autocmd FileType cpp setlocal tabstop=2    " number of visual spaces per TAB
+    autocmd FileType cpp setlocal softtabstop=2    " number of visual spaces per TAB when editing
+    autocmd FileType cpp setlocal expandtab    " tabs are spaces
     autocmd FileType java setlocal noexpandtab
     autocmd FileType java setlocal list
     autocmd FileType java setlocal listchars=tab:+\ ,eol:-
