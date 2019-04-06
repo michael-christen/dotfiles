@@ -1,0 +1,12 @@
+#ifndef __LIB_H
+#define __LIB_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif  // __cplusplus
+
+#ifdef __cplusplus
+}
+#endif  // __cplusplus
+
+#endif  // __LIB_H

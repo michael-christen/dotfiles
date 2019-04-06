@@ -71,3 +71,14 @@ chsh -s /bin/zsh
 
 1. `tmux source ~/.tmux.conf`
 1. `<prefix> + I`
+
+
+Need to setup your own .rcrc with at least this information:
+
+```
+DOTFILES_DIRS="/home/${USER}/${REPO_DIR}/files"
+```
+
+TODO:
+- [ ] Need to probably manage plugins differently, see https://thoughtbot.com/blog/rcm-for-rc-files-in-dotfiles-repos
+- [ ] TMUX submodule plugins may be broken too?
