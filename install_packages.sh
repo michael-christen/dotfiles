@@ -8,4 +8,5 @@ elif [ "$(uname)" == "Linux" ]; then
   apt-get install zsh;
   apt-get install silversearcher-ag;
   apt-get install ctags;
+  apt-get install clang-format;
 fi
