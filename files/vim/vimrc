@@ -236,10 +236,10 @@ endif
 " }}}
 
 " Snippets {{{
-nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
-nnoremap <leader>pact :-1read $HOME/.vim/.skeleton.pact<CR>5jA
-nnoremap <leader>pyscript :-1read $HOME/.vim/.skeleton.pyscript<CR>3jA
-nnoremap <leader>chead :-1read $HOME/.vim/.skeleton.cheddar<CR>10lC
+nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>3jwf>a
+nnoremap <leader>pact :-1read $HOME/.vim/snippets/skeleton.pact<CR>5jA
+nnoremap <leader>pyscript :-1read $HOME/.vim/snippets/skeleton.pyscript<CR>3jA
+nnoremap <leader>chead :-1read $HOME/.vim/snippets/skeleton.cheddar<CR>10lC
 " }}}
 
 " Folding {{{
