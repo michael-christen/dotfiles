@@ -166,6 +166,7 @@ set showmatch                  " highlight matching brackets
 set ruler                      " Show line and column in status bar
 set mouse=a                    " Enable dragging of splits
 set backspace=indent,eol,start " Ensure backspace can go before the insert
+set clipboard=unnamedplus      " Allow yank to global copy/paste
 " }}}
 
 " Searching {{{
