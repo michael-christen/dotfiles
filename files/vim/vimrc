@@ -57,6 +57,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
 
 " Jinja
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -118,6 +119,10 @@ nnoremap <leader>f :Ack<CR>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" yapf
+" ,cf: autoformat python file, then go back to original location
+autocmd Filetype python nnoremap <buffer> <leader>cf m`:%!yapf<CR>``
 
 " vim-clang-format
 autocmd FileType c,cpp,java let g:clang_format#auto_format = 1

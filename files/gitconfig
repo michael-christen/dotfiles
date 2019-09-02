@@ -13,6 +13,7 @@
 	lo = log --oneline
 	lg = log -p
 	log-detail = log -p
+	rim = rebase -i master
 	commend = commit --amend --no-edit
 	grog = log --graph --oneline --abbrev-commit --decorate --all
 	graph = log --graph --oneline --all
@@ -37,3 +38,7 @@
 	interactive = auto
 [push]
 	default = simple
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true
