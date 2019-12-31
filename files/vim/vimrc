@@ -167,6 +167,7 @@ set ruler                      " Show line and column in status bar
 set mouse=a                    " Enable dragging of splits
 set backspace=indent,eol,start " Ensure backspace can go before the insert
 set clipboard=unnamedplus      " Allow yank to global copy/paste
+set undofile                   " Keep undo/redo stack preserved
 " }}}
 
 " Searching {{{
@@ -289,6 +290,8 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufRead,BUfNewFile *.txt set syntax=jinja
+	" Set cursor back to where you were last time you opened a file
+	autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 " }}}
 
