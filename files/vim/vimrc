@@ -57,6 +57,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
 
 " Jinja
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -119,6 +120,10 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" yapf
+" ,cf: autoformat python file, then go back to original location
+autocmd Filetype python nnoremap <buffer> <leader>cf m`:%!yapf<CR>``
+
 " vim-clang-format
 autocmd FileType c,cpp,java let g:clang_format#auto_format = 1
 
@@ -161,6 +166,8 @@ set showmatch                  " highlight matching brackets
 set ruler                      " Show line and column in status bar
 set mouse=a                    " Enable dragging of splits
 set backspace=indent,eol,start " Ensure backspace can go before the insert
+set clipboard=unnamedplus      " Allow yank to global copy/paste
+set undofile                   " Keep undo/redo stack preserved
 " }}}
 
 " Searching {{{
@@ -230,10 +237,10 @@ endif
 " }}}
 
 " Snippets {{{
-nnoremap <leader>html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
-nnoremap <leader>pact :-1read $HOME/.vim/.skeleton.pact<CR>5jA
-nnoremap <leader>pyscript :-1read $HOME/.vim/.skeleton.pyscript<CR>3jA
-nnoremap <leader>chead :-1read $HOME/.vim/.skeleton.cheddar<CR>10lC
+nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>3jwf>a
+nnoremap <leader>pact :-1read $HOME/.vim/snippets/skeleton.pact<CR>5jA
+nnoremap <leader>pyscript :-1read $HOME/.vim/snippets/skeleton.pyscript<CR>3jA
+nnoremap <leader>chead :-1read $HOME/.vim/snippets/skeleton.cheddar<CR>10lC
 " }}}
 
 " Folding {{{
@@ -283,19 +290,21 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufRead,BUfNewFile *.txt set syntax=jinja
+	" Set cursor back to where you were last time you opened a file
+	autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 " }}}
 
 " Language overrides {{{
-" Enable python python with active virtualenv
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
+" XXX: Enable python with active virtualenv
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"     project_base_dir = os.environ['VIRTUAL_ENV']
+"     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"     execfile(activate_this, dict(__file__=activate_this))
+" EOF
 " }}}
 
 " Backups {{{

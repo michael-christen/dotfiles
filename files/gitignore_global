@@ -7,3 +7,6 @@ tags
 *.sublime-workspace
 /.vscode/
 /.Xil/
+*.un~
+
+errors.err
