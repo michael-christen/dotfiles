@@ -71,6 +71,12 @@ Plugin 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'java']}
 " Completion
 Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
 
+" Table Editing
+" https://github.com/dhruvasagar/vim-table-mode
+" :TableModeToggle aka <Leader>tm
+" :Tableize aka <Leader>tt
+Plugin 'dhruvasagar/vim-table-mode'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 " load filetype-specific indent files NOTE: this should leave Makefile alone
