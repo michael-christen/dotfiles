@@ -4,7 +4,7 @@ echo "Updating any git submodules"
 git submodule update --init --recursive
 
 echo "Linking configuration files into $HOME";
-rcup -v
+rcup -v -d files/
 
 echo "Installing tools";
 # Install tools
