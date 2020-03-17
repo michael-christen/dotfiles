@@ -9,6 +9,7 @@
 	stu = status --short --branch -uno
 	ci = commit
 	br = branch
+	bshow = for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
 	co = checkout
 	df = diff
 	lo = log --oneline
@@ -41,5 +42,19 @@
 	default = simple
 [diff]
 	tool = vimdiff
+	guitool = meld
 [difftool]
 	prompt = true
+[difftool "meld"]
+	cmd = meld \"$LOCAL\" \"$REMOTE\" --label \"DIFF (ORIGINAL MY)\"
+[merge]
+	# tool = meld
+	tool = vimdiff
+[mergetool]
+	# don't create backup *.orig files
+	keepBackup = false
+	# don't ask if we want to skip merge
+	prompt = false
+[mergetool "meld"]
+	cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output \"$MERGED\" --label \"MERGE (REMOTE BASE MY)\"
+	trustExitCode = false
