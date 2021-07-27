@@ -68,6 +68,9 @@ Plugin 'Glench/Vim-Jinja2-Syntax'
 " C/C++
 Plugin 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'java']}
 
+" prototxt
+Plugin 'chiphogg/vim-prototxt'
+
 " Completion
 Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
 
@@ -135,7 +138,7 @@ autocmd FileType c,cpp,java let g:clang_format#auto_format = 1
 
 " YouCompleteMe
 " let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_extra_conf_globlist = ['~/devel/sw/*', '~/devel/astros2/*']
+let g:ycm_extra_conf_globlist = ['~/devel/monorepo/*', '~/devel/ee-test/*']
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " CtrlP settings
@@ -217,6 +220,9 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 " Add line below
 nnoremap <CR> o<ESC>k
+" Insert current date
+nnoremap <leader>cd "=strftime('%Y-%m-%d, %A')<CR>pa:<ESC>
+nnoremap <leader>h4 "pa#### <ESC>
 
 " Configure ctags for tag jumping
 " ctrl-] jumps to definition
