@@ -80,6 +80,10 @@ Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-
 " :Tableize aka <Leader>tt
 Plugin 'dhruvasagar/vim-table-mode'
 
+" Autosession: save splits etc when more than one.
+" Open vim w/o files specified, close w/ multiple panes.
+Plugin 'powerman/vim-plugin-autosess'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 " load filetype-specific indent files NOTE: this should leave Makefile alone
@@ -161,6 +165,14 @@ set softtabstop=4    " number of spaces in TAB when editing
 set fileformat=unix  " Unix file types
 set textwidth=79     " Standard number of characters per line
 " }}}
+"
+" Let's save undo info!
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
 
 " UI Config {{{
 set number                     " show line numbers
@@ -176,6 +188,7 @@ set ruler                      " Show line and column in status bar
 set mouse=a                    " Enable dragging of splits
 set backspace=indent,eol,start " Ensure backspace can go before the insert
 set clipboard=unnamedplus      " Allow yank to global copy/paste
+set undodir=~/.vim/undo-dir    " Store undo files outside of main location
 set undofile                   " Keep undo/redo stack preserved
 " }}}
 

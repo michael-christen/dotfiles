@@ -38,3 +38,8 @@ fi
 echo "Installing vim plugins";
 vim -c 'PluginInstall' -c 'qa!';
 echo "Finished installing vim plugins";
+
+echo "Installing crontab";
+crontab crontab
+crontab -l
+echo "Finished installing crontab";
