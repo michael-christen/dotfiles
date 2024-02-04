@@ -59,6 +59,13 @@ command -v ssh 2>&1 > /dev/null && mkdir -p ~/.ssh \
 
 [ ! -f ~/.inputrc ] && ln -sf "$PWD/linked_config/inputrc" ~/.inputrc
 
+# Tmux
+# Download tpm if not present
+if [ ! -d $XDG_CONFIG_HOME/tmux/plugins/tpm ]; then
+    git clone https://github.com/tmux-plugins/tpm $XDG_CONFIG_HOME/tmux/plugins/tpm
+    $XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
+fi
+
 
 # XXX: Install neovim / vim updates
 # HASNVIM=$(command -v nvim 2> /dev/null)

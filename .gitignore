@@ -1,3 +1,23 @@
+# XXX: Remove these ...
 files/.vim/bundle
 files/.vim/.netrwhist
-files/.tmux/
+
+xdg_config_dir/.gsd-keyboard.settings-ported
+xdg_config_dir/gedit
+xdg_config_dir/gnome-initial-setup-done
+xdg_config_dir/ibus
+xdg_config_dir/kicad
+xdg_config_dir/libreoffice
+xdg_config_dir/google-chrome
+xdg_config_dir/menus
+xdg_config_dir/mimeapps.list
+xdg_config_dir/monitors.xml*
+xdg_config_dir/nautilus
+xdg_config_dir/nvim/.netrwhist
+xdg_config_dir/nvim/spell
+xdg_config_dir/pulse
+xdg_config_dir/QtProject.conf
+xdg_config_dir/ranger
+xdg_config_dir/tmux/plugins
+xdg_config_dir/vlc
+xdg_config_dir/wireshark
