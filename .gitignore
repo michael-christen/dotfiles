@@ -3,6 +3,7 @@ files/.vim/.netrwhist
 
 xdg_config_dir/.gsd-keyboard.settings-ported
 xdg_config_dir/gedit
+xdg_config_dir/git/userconfig
 xdg_config_dir/gnome-initial-setup-done
 xdg_config_dir/ibus
 xdg_config_dir/kicad
@@ -21,3 +22,5 @@ xdg_config_dir/tmux/plugins
 xdg_config_dir/vim/bundle
 xdg_config_dir/vlc
 xdg_config_dir/wireshark
+xdg_config_dir/zsh/.oh-my-zsh
+xdg_config_dir/zsh/.zcompdump*

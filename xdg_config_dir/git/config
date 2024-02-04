@@ -53,3 +53,7 @@
 [user]
     name = michael-christen
     email = mchristen96@gmail.com
+# https://git-scm.com/docs/git-config#_conditional_includes
+[include]
+    # Allow overrides by putting any in untracked userconfig
+    path = userconfig

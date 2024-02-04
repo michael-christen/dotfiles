@@ -22,5 +22,3 @@ for editor in nvim vim vi nano; do
         break
     fi
 done
-
-# XXX: Note, no longer sourcing .bashrc in this profile

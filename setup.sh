@@ -38,6 +38,7 @@ source ~/.profile
 
 command -v bash 2>&1 > /dev/null && ln -sf "$PWD/linked_config/bash/bashrc" ~/.bashrc && mkdir -p ${XDG_DATA_HOME:-~/.local/share}/bash
 command -v bash 2>&1 > /dev/null && ln -sf "$PWD/linked_config/bash/bash_profile.bash" ~/.bash_profile
+command -v bash 2>&1 > /dev/null && ln -sf "$PWD/linked_config/zsh/zshenv" ~/.zshenv
 # Load any new bashrc settings.
 source ~/.bashrc
 # XXX: What to do about aliases?
@@ -75,11 +76,12 @@ fi
 # # XXX I want to view the change logs, maybe have them be emailed?
 # #     && nvim --headless -c 'autocmd User Lazy update quitall' -c 'quitall' > /dev/null \
 
-# # Install vim plugins
-# # NOTE: UI will pop up
-echo "Installing vim plugins";
-vim -c 'PluginInstall' -c 'qa!';
-echo "Finished installing vim plugins";
+# Install vim plugins
+# NOTE: UI will pop up
+# XXX: Disabled because noisy
+# echo "Installing vim plugins";
+# vim -c 'PluginInstall' -c 'qa!';
+# echo "Finished installing vim plugins";
 
 # Setup cron
 # echo "Installing crontab";
@@ -102,11 +104,11 @@ echo "Finished installing vim plugins";
 #     )
 
 # echo "Installing tools";
-# # Install tools
-# # Oh-my-zsh
-# if [ ! -d $HOME/.oh-my-zsh ]; then
-#     git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh;
-# fi
+# Install tools
+# Oh-my-zsh
+if [ ! -d $XDG_CONFIG_HOME/zsh/.oh-my-zsh ]; then
+    git clone git@github.com:ohmyzsh/ohmyzsh.git $XDG_CONFIG_HOME/zsh/.oh-my-zsh;
+fi
 # # Configure zsh as default shell
 # if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
 #     # Assume in zsh

@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 #
@@ -75,5 +75,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 
 # Customizations
 
+# XXX: Needed with zshenv?
 # Use .profile by default
 [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
