@@ -110,11 +110,11 @@ if [ ! -d $XDG_CONFIG_HOME/zsh/.oh-my-zsh ]; then
     git clone git@github.com:ohmyzsh/ohmyzsh.git $XDG_CONFIG_HOME/zsh/.oh-my-zsh;
 fi
 # # Configure zsh as default shell
-# if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
-#     # Assume in zsh
-#     echo "zsh already configured";
-# else
-#     echo "Switching default shell to zsh, enter password:";
-#     chsh -s $(which zsh);
-#     echo "You may have to restart your terminal for changes to take effect";
-# fi
+if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
+    # Assume in zsh
+    echo "zsh already configured";
+else
+    echo "Switching default shell to zsh, enter password:";
+    chsh -s $(which zsh);
+    echo "You may have to restart your terminal for changes to take effect";
+fi

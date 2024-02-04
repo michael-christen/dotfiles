@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# XXX: Remove if we are default
+export PATH=/usr/local/bin:/usr/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$XDG_CONFIG_HOME/zsh/.oh-my-zsh
@@ -45,7 +46,7 @@ DISABLE_AUTO_TITLE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$XDG_CONFIG_HOME/.oh-my-zsh-custom
+ZSH_CUSTOM=$XDG_CONFIG_HOME/zsh/oh-my-zsh-custom
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -85,7 +86,8 @@ if [[ -f $XDG_CONFIG_HOME/.aliases ]]; then
 fi
 
 # Set personal PATH and ENV overrides
-source $HOME/.profile
+# XXX: Don't do, already called with .zshenv
+# source $HOME/.profile
 
 # Disable Shared History
 # unsetopt inc_append_history
@@ -109,3 +111,14 @@ fi
 
 # Don't confirm when deleting files
 setopt rm_star_silent
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# for setting history length see HISTSIZE and HISTFILESIZE
+HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/history"
+# HISTSIZE=1000
+# HISTFILESIZE=2000
+# Make it big!
+HISTSIZE=1000000000
+HISTFILESIZE=2000000000

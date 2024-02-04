@@ -25,8 +25,21 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{%f%k%b%B%F{magenta}%}]"
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{%F{red}%}*%{%f%k%b%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
+# Show duration of previous call
+function preexec() {
+  timer=${timer:-$SECONDS}
+}
+
+function precmd() {
+  if [ $timer ]; then
+    timer_show=$(($SECONDS - $timer))
+    export RPROMPT="%F{cyan}${timer_show}s %{$reset_color%}"
+    unset timer
+  fi
+}
+
 PROMPT='%{%f%k%b%}
 %{%b%F{yellow}%}%D{%H:%M:%S}%{%B%F{blue}%}|%{%b%F{green}%}%~%{%B%F{magenta}%}$(git_prompt_info)%E%{%f%k%b%}%(?..[%?] )
 $(_prompt_char)%{%f%k%b%} '
 
-RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
+# RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'

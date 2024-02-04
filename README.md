@@ -11,6 +11,7 @@ In progress notes follow:
   - tmux
   - zsh (maybe switch to fish?)
   - ctags (maybe remove?)
+- terminal colors: need to also select from terminal preferences
 
 TODO:
 - Migrate old ~/.config files to `~/dotfiles/xdg_config_dir`

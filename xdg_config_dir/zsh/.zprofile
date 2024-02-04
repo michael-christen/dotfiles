@@ -77,4 +77,4 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 
 # XXX: Needed with zshenv?
 # Use .profile by default
-[[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
+# [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'
