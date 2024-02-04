@@ -2,6 +2,8 @@
 files/.vim/.netrwhist
 
 xdg_config_dir/.gsd-keyboard.settings-ported
+xdg_config_dir/dconf
+xdg_config_dir/evolution
 xdg_config_dir/gedit
 xdg_config_dir/git/userconfig
 xdg_config_dir/gnome-initial-setup-done
