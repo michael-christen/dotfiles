@@ -32,7 +32,7 @@ NEW_XDG_CONFIG_HOME=$(dirname "$SETUP_FILE_PATH")/xdg_config_dir
 # command -v git 2>&1 > /dev/null && (git pull | tail -n +2)  # XXX if there's updates, re-exec
 
 # Set XDG_CONFIG_HOME to the directory xdg_config_dir
-sed "s,export XDG_CONFIG_HOME=.*,export XDG_CONFIG_HOME=\"$("$NEW_XDG_CONFIG_HOME")\"," template_config/profile > ~/.profile
+sed "s,export XDG_CONFIG_HOME=.*,export XDG_CONFIG_HOME=\"$NEW_XDG_CONFIG_HOME\"," template_config/profile > ~/.profile
 # Make sure we have the latest profile settings sourced.
 source ~/.profile
 
