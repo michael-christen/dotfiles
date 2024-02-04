@@ -1,5 +1,4 @@
 # XXX: Remove these ...
-files/.vim/bundle
 files/.vim/.netrwhist
 
 xdg_config_dir/.gsd-keyboard.settings-ported
@@ -19,5 +18,6 @@ xdg_config_dir/pulse
 xdg_config_dir/QtProject.conf
 xdg_config_dir/ranger
 xdg_config_dir/tmux/plugins
+xdg_config_dir/vim/bundle
 xdg_config_dir/vlc
 xdg_config_dir/wireshark

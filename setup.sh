@@ -75,12 +75,11 @@ fi
 # # XXX I want to view the change logs, maybe have them be emailed?
 # #     && nvim --headless -c 'autocmd User Lazy update quitall' -c 'quitall' > /dev/null \
 
-# XXX: Not quite sure about my plugins
 # # Install vim plugins
 # # NOTE: UI will pop up
-# echo "Installing vim plugins";
-# vim -c 'PluginInstall' -c 'qa!';
-# echo "Finished installing vim plugins";
+echo "Installing vim plugins";
+vim -c 'PluginInstall' -c 'qa!';
+echo "Finished installing vim plugins";
 
 # Setup cron
 # echo "Installing crontab";

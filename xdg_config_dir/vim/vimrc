@@ -27,11 +27,14 @@ endif
 
 " set the runtime path to include Vundle and initialize
 set rtp+=$XDG_CONFIG_HOME/vim/bundle/Vundle.vim
+
+call vundle#rc("$XDG_CONFIG_HOME/vim/bundle")
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
+" XXX: Had issue installing over itself
 Plugin 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
@@ -66,10 +69,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Catch syntax / lint errors
 " :lopen shows detailed errors
 " :lnext goes to next error
-Plugin 'vim-syntastic/syntastic'
+" XXX: Archived
+" Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
+" XXX: rpc failed cloning
+" Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
 
 " Jinja
 Plugin 'Glench/Vim-Jinja2-Syntax'
@@ -84,7 +89,8 @@ Plugin 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'java']}
 Plugin 'chiphogg/vim-prototxt'
 
 " Completion
-Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
+" XXX: rpc failed cloning
+" Plugin 'ycm-core/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
 
 " Table Editing
 " https://github.com/dhruvasagar/vim-table-mode
@@ -92,9 +98,11 @@ Plugin 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --clang-
 " :Tableize aka <Leader>tt
 Plugin 'dhruvasagar/vim-table-mode'
 
+" XXX: Disabled
 " Autosession: save splits etc when more than one.
 " Open vim w/o files specified, close w/ multiple panes.
-Plugin 'powerman/vim-plugin-autosess'
+" let g:autosess_dir="$XDG_CACHE_HOME/vim/autosess"
+" Plugin 'powerman/vim-plugin-autosess'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
