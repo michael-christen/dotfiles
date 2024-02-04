@@ -1,5 +1,28 @@
 # Version Controlled Configuration
 
+This mostly copies my friend's dotfiles setup:
+https://github.com/mark64/dotfiles, which takes advantage of the
+[XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
+
+In progress notes follow:
+- currently setup to track:
+  - git
+  - vim
+  - tmux
+  - zsh (maybe switch to fish?)
+  - ctags (maybe remove?)
+
+TODO:
+- move file/directory structure around from rcm to XDG spec
+- remove all references to rcm
+- change external installs:
+  - tpm submodule / handle installation of that differently
+  - similar story for oh-my-zsh
+  - is Vundle just tracked in source?
+
+
+---
+
 This repo follows from the blog post found
 [here](https://www.digitalocean.com/community/tutorials/how-to-use-git-to-manage-your-user-configuration-files-on-a-linux-vps).
 Managing config files (`.vimrc`, `.bashrc`) can get tricky, especially when

@@ -1,0 +1,18 @@
+$include /etc/inputrc
+set completion-ignore-case on
+set editing-mode vi
+# from https://unix.stackexchange.com/questions/104094/is-there-any-way-to-enable-ctrll-to-clear-screen-when-set-o-vi-is-set
+$if mode=vi
+set keymap vi-command
+Control-l: clear-screen
+set keymap vi-insert
+Control-l: clear-screen
+"jk": vi-movement-mode
+# from https://stackoverflow.com/questions/7179642/how-can-i-make-bash-tab-completion-behave-like-vim-tab-completion-and-cycle-thro
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on
+# if you up-arrow and edit a line, but then don't run it, the edit will be reverted.
+set revert-all-at-newline on
+$endif
