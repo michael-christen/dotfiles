@@ -13,6 +13,7 @@ In progress notes follow:
   - ctags (maybe remove?)
 
 TODO:
+- Migrate old ~/.config files to `~/dotfiles/xdg_config_dir`
 - move file/directory structure around from rcm to XDG spec
 - remove all references to rcm
 - change external installs:

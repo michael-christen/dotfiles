@@ -1,0 +1,55 @@
+# https://git-scm.com/docs/git-config
+[alias]
+    st = status --short --branch
+    stu = status --short --branch -uno
+    ci = commit
+    br = branch
+    bshow = for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:short) %(authorname) %(refname:short)'
+    co = checkout
+    df = diff
+    lo = log --oneline
+    lg = log -p
+    log-detail = log -p
+    rim = rebase -i master
+    commend = commit --amend --no-edit
+    grog = log --graph --oneline --abbrev-commit --decorate --all
+    graph = log --graph --oneline --all
+    mark = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+    stsh = stash --keep-index
+    staash = stash --include-untracked
+    staaash = stash --all
+    please = push --force-with-lease
+    clear = !git checkout master && git pull && git clean-local
+    clean-local = !git br --merged master | grep -v master | xargs git br -d
+    list-local = !git br --merged master | grep -v master
+    clean-remote = "!for b in $(git br -r --merged master); do echo $b | grep -v master | awk '{split($0,a,\"/\"); print a[2]}' | xargs git push origin --delete; done"
+    list-remote = "!for b in $(git br -r --merged master); do echo $b | grep -v master | awk '{split($0,a,\"/\"); print a[2]}'; done"
+    # Update the remote references with origin
+    update = fetch -p origin
+[branch]
+    sort = -authordate
+[color]
+    ui = auto
+    status = auto
+    branch = auto
+    diff   = auto
+    interactive = auto
+[core]
+    editor = nvim
+[credential]
+    helper = cache
+# [init]
+#     defaultBranch = main
+[push]
+    default = simple
+# The name stands for “reuse recorded resolution” and, as the name implies, it
+# allows you to ask Git to remember how you’ve resolved a hunk conflict so that
+# the next time it sees the same conflict, Git can resolve it for you
+# automatically.
+[rerere]
+    enabled = true
+[user]
+    name = michael-christen
+    email = mchristen96@gmail.com
