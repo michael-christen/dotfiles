@@ -13,8 +13,20 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 set encoding=utf-8
 
+if empty("$XDG_CACHE_HOME")
+    let $XDG_CACHE_HOME="$HOME/.cache"
+endif
+
+if empty("$XDG_CONFIG_HOME")
+    let $XDG_CONFIG_HOME="$HOME/.config"
+endif
+
+if empty("$XDG_DATA_HOME")
+    let $XDG_DATA_HOME="$HOME/.local/share"
+endif
+
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=$XDG_CONFIG_HOME/vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -106,6 +118,8 @@ syntax enable        " enable syntax processing
 " Configure solarized
 let g:solarized_termcolors=256
 set background=dark
+" XXX: The contrast kinda sucks now that I'm seeing it in comparison with
+" default
 colorscheme solarized
 " }}}
 
@@ -155,7 +169,7 @@ let g:ctrlp_working_path_mode = 0                                 " Search from 
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --ignore .git -g ""'  " Use ag for searching
 endif
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=$XDG_CONFIG_HOME/vim/bundle/ctrlp.vim
 
 " }}}
 
@@ -167,29 +181,31 @@ set textwidth=79     " Standard number of characters per line
 " }}}
 "
 " Let's save undo info!
-if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim", "", 0770)
+if !isdirectory($XDG_CACHE_HOME."/vim")
+    call mkdir($XDG_CACHE_HOME."/vim", "", 0770)
 endif
-if !isdirectory($HOME."/.vim/undo-dir")
-    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+if !isdirectory($XDG_CACHE_HOME."/vim/undo")
+    call mkdir($XDG_CACHE_HOME."/vim/undo", "", 0700)
 endif
 
 " UI Config {{{
-set number                     " show line numbers
-set relativenumber             " show number relative to current line
-set showcmd                    " show command in bottom bar
-set cursorline                 " highlight current row of text
-set cursorcolumn               " highlight current column of text
-set path+=**                   " Enable recursive file searching of subdirectories
-set wildmenu                   " visual autocomplete for command menu
-set lazyredraw                 " redraw only when we needto (faster macros!)
-set showmatch                  " highlight matching brackets
-set ruler                      " Show line and column in status bar
-set mouse=a                    " Enable dragging of splits
-set backspace=indent,eol,start " Ensure backspace can go before the insert
-set clipboard=unnamedplus      " Allow yank to global copy/paste
-set undodir=~/.vim/undo-dir    " Store undo files outside of main location
-set undofile                   " Keep undo/redo stack preserved
+set number                                   " show line numbers
+set relativenumber                           " show number relative to current line
+set showcmd                                  " show command in bottom bar
+set cursorline                               " highlight current row of text
+set cursorcolumn                             " highlight current column of text
+set path+=**                                 " Enable recursive file searching of subdirectories
+set wildmenu                                 " visual autocomplete for command menu
+set lazyredraw                               " redraw only when we needto (faster macros!)
+set showmatch                                " highlight matching brackets
+set ruler                                    " Show line and column in status bar
+set mouse=a                                  " Enable dragging of splits
+set backspace=indent,eol,start               " Ensure backspace can go before the insert
+set clipboard=unnamedplus                    " Allow yank to global copy/paste
+set undodir=$XDG_CACHE_HOME/vim/undo         " Store undo files outside of main location
+set undofile                                 " Keep undo/redo stack preserved
+" set backupdir=$XDG_CACHE_HOME/vim/backup
+" set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 " }}}
 
 " Searching {{{
@@ -252,13 +268,15 @@ else
 endif
 
 " Color configuration
-if &term =~ '^screen'
-    " term 256color doesn't work, so have different setting
-    set term=screen-256color
-    set ttymouse=xterm2
-else
-    set term=xterm-256color
-endif
+if !has('nvim')
+    if &term =~ '^screen'
+        " term 256color doesn't work, so have different setting
+        set term=screen-256color
+        set ttymouse=xterm2
+    else
+        set term=xterm-256color
+    endif
+endif  " nvim
 " }}}
 
 " Snippets {{{
@@ -315,8 +333,8 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal shiftwidth=2
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufRead,BUfNewFile *.txt set syntax=jinja
-	" Set cursor back to where you were last time you opened a file
-	autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    " Set cursor back to where you were last time you opened a file
+    autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 " }}}
 
