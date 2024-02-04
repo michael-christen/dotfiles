@@ -24,19 +24,20 @@
 
 SETUP_FILE_PATH=$(realpath $0)
 cd "$(dirname "$SETUP_FILE_PATH")"
+NEW_XDG_CONFIG_HOME=$(dirname "$SETUP_FILE_PATH")/xdg_config_dir
 
 # XXX: Consider doing this
 # Update this repository
 # NOTE: `command -v "cmd" 2>&1 > /dev/null` checks for existence of `cmd`
 # command -v git 2>&1 > /dev/null && (git pull | tail -n +2)  # XXX if there's updates, re-exec
 
-# Set XDG_CONFIG_HOME to this directory
-sed "s,export XDG_CONFIG_HOME=.*,export XDG_CONFIG_HOME=\"$(dirname "$SETUP_FILE_PATH")\"," profile > ~/.profile
+# Set XDG_CONFIG_HOME to the directory xdg_config_dir
+sed "s,export XDG_CONFIG_HOME=.*,export XDG_CONFIG_HOME=\"$("$NEW_XDG_CONFIG_HOME")\"," template_config/profile > ~/.profile
 # Make sure we have the latest profile settings sourced.
 source ~/.profile
 
-command -v bash 2>&1 > /dev/null && ln -sf "$PWD/bash/bashrc" ~/.bashrc && mkdir -p ${XDG_DATA_HOME:-~/.local/share}/bash
-command -v bash 2>&1 > /dev/null && ln -sf "$PWD/bash/bash_profile.bash" ~/.bash_profile
+command -v bash 2>&1 > /dev/null && ln -sf "$PWD/linked_config/bash/bashrc" ~/.bashrc && mkdir -p ${XDG_DATA_HOME:-~/.local/share}/bash
+command -v bash 2>&1 > /dev/null && ln -sf "$PWD/linked_config/bash/bash_profile.bash" ~/.bash_profile
 # Load any new bashrc settings.
 source ~/.bashrc
 # XXX: What to do about aliases?
@@ -54,9 +55,9 @@ source ~/.bashrc
 # fi
 # XXX: Remove .pub?
 command -v ssh 2>&1 > /dev/null && mkdir -p ~/.ssh \
-    && (for FILE in $(find "$PWD/ssh" -name authorized_keys -o -name '*.pub' -o -name 'config'); do ln -sf "$FILE" ~/.ssh/; done)
+    && (for FILE in $(find "$PWD/linked_config/ssh" -name authorized_keys -o -name '*.pub' -o -name 'config'); do ln -sf "$FILE" ~/.ssh/; done)
 
-[ ! -f ~/.inputrc ] && ln -sf "$PWD/inputrc" ~/.inputrc
+[ ! -f ~/.inputrc ] && ln -sf "$PWD/linked_config/inputrc" ~/.inputrc
 
 
 # XXX: Install neovim / vim updates
