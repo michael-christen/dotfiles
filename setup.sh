@@ -67,6 +67,10 @@ if [ ! -d $XDG_CONFIG_HOME/tmux/plugins/tpm ]; then
     $XDG_CONFIG_HOME/tmux/plugins/tpm/bin/install_plugins
 fi
 
+# Download Vundle if not present
+if [ ! -d $XDG_CONFIG_HOME/vim/bundle/Vundle.vim ]; then
+	  git clone https://github.com/VundleVim/Vundle.vim.git $XDG_CONFIG_HOME/vim/bundle/Vundle.vim
+fi
 
 # XXX: Install neovim / vim updates
 # HASNVIM=$(command -v nvim 2> /dev/null)
