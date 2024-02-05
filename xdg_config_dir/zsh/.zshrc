@@ -122,3 +122,12 @@ HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/history"
 # Make it big!
 HISTSIZE=1000000000
 HISTFILESIZE=2000000000
+
+SHARED_ALIASES=$XDG_CONFIG_HOME/shared.aliases
+if [ -f $SHARED_ALIASES ]; then
+    . $SHARED_ALIASES
+fi
+USER_ALIASES=$XDG_CONFIG_HOME/user.aliases
+if [ -f $USER_ALIASES ]; then
+    . $USER_ALIASES
+fi

@@ -1,1 +1,58 @@
 # Shared aliases across machines
+
+cmd_exists(){
+    command -v $1 &>/dev/null
+}
+
+astenv(){
+  cmd_exists deactivate && deactivate
+
+  repo_root="$(git rev-parse --show-toplevel 2>/dev/null)"
+  if [ -z "$repo_root" ]; then
+    echo "ERROR: You are not inside of a git repo."
+    return 1
+  fi
+
+  venv_activate=$repo_root/venv/bin/activate
+  if [ ! -e $venv_activate ]; then
+    echo "No functioning virtualenv found in this repo."
+    return 1
+  fi
+  source $venv_activate
+}
+
+say_result() {
+  result=$?;
+  if [ $result -eq 0 ]; then
+    say "Success!";
+  else
+    say "FAILURE!";
+  fi
+  return $result;
+}
+
+function tag_version() {
+  if [ -z ${1+x} ]; then
+    echo "description is unset";
+    exit 1;
+  fi
+  description=$1
+  echo $description
+  return 0;
+
+  v=`python setup.py --version`
+  echo "Uploading a tag for v${v}: '${description}'"
+
+  git tag -a v$v -m "Version ${v}: ${description}"
+  git push origin v$v
+}
+
+alias v=vim
+alias my-prs='gh search prs --state open --author @me'
+alias completed-reviews='gh search prs --state open --reviewed-by @me'
+alias pending-reviews='gh search prs --state open --review-requested @me'
+alias subscribed-prs='gh search prs --state open --assignee @me'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
