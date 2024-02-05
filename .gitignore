@@ -1,3 +1,4 @@
+linked_config/ssh/user_authorized_keys
 xdg_config_dir/arduino-ide
 xdg_config_dir/Arduino\ IDE
 xdg_config_dir/atril
@@ -69,8 +70,10 @@ xdg_config_dir/transmission
 xdg_config_dir/Trolltech.conf
 xdg_config_dir/unity3d
 xdg_config_dir/update-notifier
+xdg_config_dir/user.aliases
 xdg_config_dir/user-dirs.dirs
 xdg_config_dir/user-dirs.locale
+xdg_config_dir/userprofile
 xdg_config_dir/vim/bundle
 xdg_config_dir/VirtualBox
 xdg_config_dir/vlc

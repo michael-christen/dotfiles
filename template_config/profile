@@ -22,3 +22,6 @@ for editor in nvim vim vi nano; do
         break
     fi
 done
+if [ -f "$XDG_CONFIG_HOME/userprofile" ]; then
+    source "$XDG_CONFIG_HOME/userprofile"
+fi
