@@ -1,6 +1,3 @@
-# XXX: Remove these ...
-files/.vim/.netrwhist
-
 xdg_config_dir/.gsd-keyboard.settings-ported
 xdg_config_dir/dconf
 xdg_config_dir/evolution
