@@ -49,6 +49,4 @@ https://github.com/mark64/dotfiles, which takes advantage of the
 
 ## Future Plans / TODOs
 - auto-update the repo / improve crontab definitions
-- improve / share aliases, possibly reducing bashrc usage
-- Install common scripts / aliases
 - Use more neovim features, eg) mason: https://github.com/williamboman/mason.nvim
