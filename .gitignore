@@ -74,3 +74,4 @@ xdg_config_dir/wireshark
 xdg_config_dir/xbuild
 xdg_config_dir/zsh/.oh-my-zsh
 xdg_config_dir/zsh/.zcompdump*
+xdg_config_dir/user-dirs.dirs
