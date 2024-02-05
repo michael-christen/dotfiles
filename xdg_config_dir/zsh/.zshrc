@@ -1,6 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# XXX: Remove if we are default
-export PATH=/usr/local/bin:/usr/bin:$PATH
+# export PATH=/usr/local/bin:/usr/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$XDG_CONFIG_HOME/zsh/.oh-my-zsh
@@ -76,18 +75,6 @@ export EDITOR='vim'
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-if [[ -f $XDG_CONFIG_HOME/.aliases ]]; then
-  source $XDG_CONFIG_HOME/.aliases
-fi
-
-# Set personal PATH and ENV overrides
-# XXX: Don't do, already called with .zshenv
-# source $HOME/.profile
 
 # Disable Shared History
 # unsetopt inc_append_history

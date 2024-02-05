@@ -72,9 +72,3 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
-
-# Customizations
-
-# XXX: Needed with zshenv?
-# Use .profile by default
-# [[ -e ~/.profile ]] && emulate sh -c 'source ~/.profile'

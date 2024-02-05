@@ -34,7 +34,6 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-" XXX: Had issue installing over itself
 Plugin 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
@@ -126,7 +125,6 @@ syntax enable        " enable syntax processing
 " Configure solarized
 let g:solarized_termcolors=256
 set background=dark
-" XXX: The contrast kinda sucks now that I'm seeing it in comparison with
 " default
 colorscheme solarized
 " }}}
