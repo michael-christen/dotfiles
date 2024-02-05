@@ -20,8 +20,9 @@ source ~/.bashrc
 # TODO: What to do about aliases?
 
 command -v ssh 2>&1 > /dev/null && mkdir -p ~/.ssh \
-    && (for FILE in $(find "$PWD/linked_config/ssh" -name authorized_keys -o -name 'config' -o -name 'user_authorized_keys' | sort); do ln -sf "$FILE" ~/.ssh/; done)
+    && (for FILE in $(find "$PWD/linked_config/ssh" -name authorized_keys -o -name 'config'); do ln -sf "$FILE" ~/.ssh/; done)
 
+[ -f $PWD/linked_config/ssh/user_authorized_keys ] && ln -sf "$PWD/linked_config/ssh/user_authorized_keys" ~/.ssh/authorized_keys
 [ ! -f ~/.inputrc ] && ln -sf "$PWD/linked_config/inputrc" ~/.inputrc
 
 # Tmux
