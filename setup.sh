@@ -116,7 +116,7 @@ fi
 # # Configure zsh as default shell
 if [ -n "`$SHELL -c 'echo $ZSH_VERSION'`" ]; then
     # Assume in zsh
-    echo "zsh already configured";
+    echo "";
 else
     echo "Switching default shell to zsh, enter password:";
     chsh -s $(which zsh);
