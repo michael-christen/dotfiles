@@ -1,7 +1,0 @@
---python-kinds=-iv
---exclude=.git
---exclude=build
---exclude=node_modules
---exclude=\*.pyc
---exclude=\*.js
---exclude=\*.min.\*

@@ -1,0 +1,406 @@
+" Heavy inspiration from: https://dougblack.io/words/a-good-vimrc.html
+
+" Plugins {{{
+" surround
+" repeat
+" objtext
+" gundo.vim  " Display undo tree in graphical form
+"
+" call pathogen#infect()                      " use pathogen
+" call pathogen#runtime_append_all_bundles()  " use pathogen
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set encoding=utf-8
+
+if empty("$XDG_CACHE_HOME")
+    let $XDG_CACHE_HOME="$HOME/.cache"
+endif
+
+if empty("$XDG_CONFIG_HOME")
+    let $XDG_CONFIG_HOME="$HOME/.config"
+endif
+
+if empty("$XDG_DATA_HOME")
+    let $XDG_DATA_HOME="$HOME/.local/share"
+endif
+
+" set the runtime path to include Vundle and initialize
+set rtp+=$XDG_CONFIG_HOME/vim/bundle/Vundle.vim
+
+call vundle#rc("$XDG_CONFIG_HOME/vim/bundle")
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'christoomey/vim-tmux-navigator'
+" Plugin 'benmills/vimux'
+" Plugin 'tpope/vim-dispatch'
+" Plugin 'tmhedberg/SimplyFold'
+" let g:SimplyFold_docstring_preview=1
+
+" Plugin 'jnurmine/Zenburn'
+
+"
+" Searching plugins
+"
+"
+Plugin 'mileszs/ack.vim'
+
+" Fuzzy file searching
+" <c-p> opens terminal for searching for files
+Plugin 'ctrlpvim/ctrlp.vim'
+
+"
+" Language specific plugins
+"
+
+" Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_autoclose_preview_window_after_completion=1
+
+" Python
+" Catch syntax / lint errors
+" :lopen shows detailed errors
+" :lnext goes to next error
+" XXX: Archived
+" Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'vim-scripts/indentpython.vim'
+" XXX: rpc failed cloning
+" Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
+
+" Jinja
+Plugin 'Glench/Vim-Jinja2-Syntax'
+
+" Rust
+" Plugin 'rust-lang/rust.vim'
+
+" C/C++
+Plugin 'rhysd/vim-clang-format', {'for': ['c', 'cpp', 'java']}
+
+" prototxt
+Plugin 'chiphogg/vim-prototxt'
+
+" Completion
+" XXX: rpc failed cloning
+" Plugin 'ycm-core/YouCompleteMe', {'do': './install.py --clang-completer --clang-tidy'}
+
+" Table Editing
+" https://github.com/dhruvasagar/vim-table-mode
+" :TableModeToggle aka <Leader>tm
+" :Tableize aka <Leader>tt
+Plugin 'dhruvasagar/vim-table-mode'
+
+" XXX: Disabled
+" Autosession: save splits etc when more than one.
+" Open vim w/o files specified, close w/ multiple panes.
+" let g:autosess_dir="$XDG_CACHE_HOME/vim/autosess"
+" Plugin 'powerman/vim-plugin-autosess'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+" load filetype-specific indent files NOTE: this should leave Makefile alone
+" enable builtin filetype plugin
+filetype plugin indent on    " load plugin indent files
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" }}}
+
+" Colors {{{
+syntax enable        " enable syntax processing
+
+" Configure solarized
+let g:solarized_termcolors=256
+set background=dark
+" default
+colorscheme solarized
+" }}}
+
+" Globals {{{
+let mapleader=","       " leader is comma vs '\'
+" }}}
+
+" Plugin Options {{{
+
+" Syntastic
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore=E,W,F403'
+let g:syntastic_always_populate_loc_list = 1  " Populate LOC by default (don't require :Errors)
+" let g:syntastic_auto_loc_list = 1             " Show detailed errors, or :lopen
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+" Set this, run :SyntasticCheck, then :mes to find issues
+" let g:syntastic_debug = 3
+
+" Ack
+nnoremap <leader>a :Ack 
+" Find word under cursor
+nnoremap <leader>f :Ack<CR>
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" yapf
+" ,cf: autoformat python file, then go back to original location
+autocmd Filetype python nnoremap <buffer> <leader>cf m`:%!yapf<CR>``
+
+" vim-clang-format
+autocmd FileType c,cpp,java let g:clang_format#auto_format = 1
+
+" YouCompleteMe
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_extra_conf_globlist = ['~/devel/monorepo/*', '~/devel/ee-test/*']
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" CtrlP settings
+let g:ctrlp_max_files = 0                                         " no limit when scanning files
+let g:ctrlp_match_window = 'bottom,order:ttb,result:0,max:30'    " Where to place the matching window
+let g:ctrlp_switch_buffer = 0                                     " Don't get tricky with opening files
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 0                                 " Search from project root. (0 disables this)
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden --ignore .git -g ""'  " Use ag for searching
+endif
+set runtimepath^=$XDG_CONFIG_HOME/vim/bundle/ctrlp.vim
+
+" }}}
+
+" Whitespace {{{
+set tabstop=4        " number of visual spaces per TAB
+set softtabstop=4    " number of spaces in TAB when editing
+set fileformat=unix  " Unix file types
+set textwidth=79     " Standard number of characters per line
+" }}}
+"
+" Let's save undo info!
+if !isdirectory($XDG_CACHE_HOME."/vim")
+    call mkdir($XDG_CACHE_HOME."/vim", "", 0770)
+endif
+if !isdirectory($XDG_CACHE_HOME."/vim/undo")
+    call mkdir($XDG_CACHE_HOME."/vim/undo", "", 0700)
+endif
+
+" UI Config {{{
+set number                                   " show line numbers
+set relativenumber                           " show number relative to current line
+set showcmd                                  " show command in bottom bar
+set cursorline                               " highlight current row of text
+set cursorcolumn                             " highlight current column of text
+set path+=**                                 " Enable recursive file searching of subdirectories
+set wildmenu                                 " visual autocomplete for command menu
+set lazyredraw                               " redraw only when we needto (faster macros!)
+set showmatch                                " highlight matching brackets
+set ruler                                    " Show line and column in status bar
+set mouse=a                                  " Enable dragging of splits
+set backspace=indent,eol,start               " Ensure backspace can go before the insert
+set clipboard=unnamedplus                    " Allow yank to global copy/paste
+set undodir=$XDG_CACHE_HOME/vim/undo         " Store undo files outside of main location
+set undofile                                 " Keep undo/redo stack preserved
+" set backupdir=$XDG_CACHE_HOME/vim/backup
+" set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+" }}}
+
+" Searching {{{
+set incsearch        " search as characters are entered
+set hlsearch         " highlight matches
+" turn off search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
+" }}}
+
+" Movement {{{
+" move vertically by visual line (gets around super long lines)
+nnoremap j gj
+nnoremap k gk
+" higlight last inserted text
+nnoremap gV `[v`]
+" Move to begging/end of line
+" nnoremap B ^
+" nnoremap E $
+" Disable ^ $
+" nnoremap $ <nop>
+" nnoremap ^ <nop>
+
+" File browsing utilizing netrw buitin
+let g:netrw_banner=0       " disable annoying banner
+let g:netrw_browse_split=4 " open in prior window
+let g:netrw_altv=1         " open splits to the right
+let g:netrw_liststyle=3    " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\/\s\s\)\zs\.\S\+'
+" }}}
+
+" Shortcuts {{{
+" ;; is escape
+inoremap ;; <esc>
+" save vim session
+nnoremap <leader>s :mksession<CR>
+" Quickly navigate windows
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+" Add line below
+nnoremap <CR> o<ESC>k
+" Insert current date
+nnoremap <leader>cd "=strftime('%Y-%m-%d, %A')<CR>pa:<ESC>
+nnoremap <leader>h4 "pa#### <ESC>
+
+" Configure ctags for tag jumping
+" ctrl-] jumps to definition
+command! MakeTags !ctags -R .
+command! MakePTags !ctags --exclude=\*.js -R . $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
+
+" allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" Color configuration
+if !has('nvim')
+    if &term =~ '^screen'
+        " term 256color doesn't work, so have different setting
+        set term=screen-256color
+        set ttymouse=xterm2
+    else
+        set term=xterm-256color
+    endif
+endif  " nvim
+" }}}
+
+" Snippets {{{
+nnoremap <leader>html :-1read $HOME/.vim/snippets/skeleton.html<CR>3jwf>a
+nnoremap <leader>pact :-1read $HOME/.vim/snippets/skeleton.pact<CR>5jA
+nnoremap <leader>pyscript :-1read $HOME/.vim/snippets/skeleton.pyscript<CR>3jA
+nnoremap <leader>chead :-1read $HOME/.vim/snippets/skeleton.cheddar<CR>10lC
+" }}}
+
+" Folding {{{
+set foldenable          " enable folding
+set foldlevelstart=10   " open most folds by default
+set foldnestmax=10      " 10 nested fold max
+" space open/closes folds
+nnoremap <space> za
+set foldmethod=indent   " fold based on indent level
+" }}}
+
+" Autogroup {{{
+augroup configgroup
+    autocmd!
+    autocmd VimEnter * highlight clear SignColumn
+    autocmd BufWritePre *.php,*.py,*.js,*.jsx,*.txt,*.hs,*.java,*.md call <SID>StripTrailingWhitespaces()
+    autocmd FileType c setlocal shiftwidth=2
+    autocmd FileType c setlocal tabstop=2    " number of visual spaces per TAB
+    autocmd FileType c setlocal softtabstop=2    " number of visual spaces per TAB when editing
+    autocmd FileType c setlocal expandtab    " tabs are spaces
+    autocmd FileType cpp setlocal shiftwidth=2
+    autocmd FileType cpp setlocal tabstop=2    " number of visual spaces per TAB
+    autocmd FileType cpp setlocal softtabstop=2    " number of visual spaces per TAB when editing
+    autocmd FileType cpp setlocal expandtab    " tabs are spaces
+    autocmd FileType java setlocal noexpandtab
+    autocmd FileType java setlocal list
+    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType php setlocal expandtab
+    autocmd FileType php setlocal list
+    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
+    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
+    autocmd FileType ruby setlocal tabstop=2
+    autocmd FileType ruby setlocal shiftwidth=2
+    autocmd FileType ruby setlocal softtabstop=2
+    autocmd FileType ruby setlocal commentstring=#\ %s
+    autocmd FileType python setlocal commentstring=#\ %s
+    autocmd FileType python setlocal shiftwidth=4
+    autocmd FileType python setlocal textwidth=79
+    autocmd FileType python setlocal expandtab        " tabs are spaces
+    autocmd FileType python setlocal autoindent
+    autocmd BufEnter *.cls setlocal filetype=java
+    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
+    autocmd BufEnter Makefile setlocal noexpandtab
+    autocmd BufEnter *.mk setlocal noexpandtab
+    autocmd BufEnter *.sh setlocal tabstop=2
+    autocmd BufEnter *.sh setlocal shiftwidth=2
+    autocmd BufEnter *.sh setlocal softtabstop=2
+    autocmd BufRead,BUfNewFile *.txt set syntax=jinja
+    " Set cursor back to where you were last time you opened a file
+    autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+" }}}
+
+" Language overrides {{{
+" XXX: Enable python with active virtualenv
+" py << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"     project_base_dir = os.environ['VIRTUAL_ENV']
+"     activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+"     execfile(activate_this, dict(__file__=activate_this))
+" EOF
+" }}}
+
+" Backups {{{
+" Dangerous
+set nobackup
+set nowritebackup
+set noswapfile
+" Safe, but annoying
+" set backup
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set backupskip=/tmp/*,/private/tmp/*
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set writebackup
+" }}}
+
+" Custom Functions {{{
+" toggle between number and relativenumber
+function! ToggleNumber()
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunc
+
+" }}}
+
+" Notes {{{
+"
+" Navigation:
+" - z can be used for moving screen without cursor
+"   - zz middle
+"   - zt top
+"   - zb bottom
+"   - <ctrl>-y move up 1
+"   - <ctrl>-e move dn 1
+" }}}

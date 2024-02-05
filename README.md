@@ -1,84 +1,54 @@
 # Version Controlled Configuration
 
-This repo follows from the blog post found
-[here](https://www.digitalocean.com/community/tutorials/how-to-use-git-to-manage-your-user-configuration-files-on-a-linux-vps).
-Managing config files (`.vimrc`, `.bashrc`) can get tricky, especially when
-working with various systems. The blog post recommended 3 ways of versioning:
-1. Put home directory under version control (seems gross)
-2. Add a configuration directory and link files back into `~`
-3. Put home directory under version control via configuring `core.worktree`
-  * This seems neat, it automatically modifies those files, but it's still
-    viewing the entire home directory.
+This mostly copies my friend's dotfiles setup:
+https://github.com/mark64/dotfiles, which takes advantage of the
+[XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 
-I've [used puppet in the past](https://github.com/michael-christen/dev_configuration),
-and while that's useful for actually installing
-the various utilities, it can become burdensome to update configurations. This
-should be a more lightweight approach.
+- currently setup to track and configure these main tools:
+  - git
+  - vim
+  - tmux
+  - zsh
+  - several others are configured simply through the use of XDG_CONFIG_HOME
+	redirection
+- terminal colors: need to also select from terminal preferences
 
-## Architecture
+## Layout
 
-* Configuration files
-* Configuration script: simple script to link the various files / directories
-  into the home directory.
+- `setup.sh`: the script that sets all of this up
+- `.gitignore`: all of the XDG_CONFIG_HOME files we don't want to track
+- config directories:
+  - `linked_config`: config files that have to be linked / aren't able to use
+	the XDG_CONFIG_HOME overwrite
+  - `template_config`: config that we modify and then set
+  - `xdg_config_dir`: XDG_CONFIG_HOME tracked files
 
-### Configuration Files
+## How To Use / Installation
+- Note this will override several files, best to save them for future use if
+  running for the first time
+  - `~/.bash_profile`
+  - `~/.bashrc`
+  - `~/.inputrc`
+  - `~/.profile`
+  - `~/.ssh/authorized_keys`
+  - `~/.ssh/config`
+  - `~/.zshenv`
+- Custom overrides are available with `xdg_config_dir/`:
+  - `git/userconfig` -> `git/config`
+  - `userprofile` -> `~/.profile`
+  - `user.aliases` -> `shared.aliases`
+  - `linked_config/ssh/user_authorized_keys` -> `~/.ssh/authorized_keys`
+- requires installation of several system utilities, see
+  https://github.com/michael-christen/toolbox/blob/35af433e6c955fd6bc50b4a98d4ca8576d5bfdb6/ansible_playbooks/dev_setup.yaml
+  for an example
+- run `./setup.sh`
+- if this is your first time, you'll want to logout/login to ensure UI
+  applications can use the new XDG_ environment variables
 
-* Shell:
-  * `.profile`
-    * This should define all of the custom environment variables for a system,
-      so will be left out of this version control system. See
-      [this post](https://superuser.com/questions/183845/which-setup-files-should-be-used-for-setting-up-environment-variables-with-bash/183956#183956)
-      about it.
-  * `.bashrc`
-  * `.bash_aliases`
-  * `.gitconfig`
-  * __Stretch Goal__: Install useful scripts
-  * `.tmux.conf`
-    * Consider using [TPM](https://github.com/tmux-plugins/tpm) for managing
-      tmux plugins.
-    * tmux-resurrect / tmux-continuum
-* Editor:
-  * `.vim/`
-    * `.vimrc`
-  * `.editorconfig`
+- Update tmux plugins with `<prefix> + I`
 
-## Resources:
-
-### Vim
-
-* [Learning Vim Article](https://medium.com/@peterxjang/how-to-learn-vim-a-four-week-plan-cd8b376a9b85)
-that made me reevaluate my configuration setup
-* [Vim Directory Structure](http://www.panozzaj.com/blog/2011/09/09/vim-directory-structure/)
-* [`.vimrc` setup](https://dougblack.io/words/a-good-vimrc.html)
-* [Mastering the Vim Language](https://www.youtube.com/watch?v=wlR5gYd6um0&list=LLR8PzB32EL-ldL7Vo_xPCQg&index=1)
-
-## How to Setup
-
-- You may need to configure your default shell to be `zsh`, to do so run:
-
-```
-chsh -s /bin/zsh
-```
-
-## How to Update
-
-1. Run `sudo ./install_packages.sh` to install system packages
-1. Run `./install.sh` to install files and plugins
-
-### Additional Steps When Updating
-
-#### TMux
-
-1. `tmux source ~/.tmux.conf`
-1. `<prefix> + I`
-
-
-Need to setup your own .rcrc with at least this information:
-
-```
-DOTFILES_DIRS="/home/${USER}/${REPO_DIR}/files"
-```
-
-TODO:
-- [ ] Need to probably manage plugins differently, see https://thoughtbot.com/blog/rcm-for-rc-files-in-dotfiles-repos
-- [ ] TMUX submodule plugins may be broken too?
+## Future Plans / TODOs
+- auto-update the repo / improve crontab definitions
+- improve / share aliases, possibly reducing bashrc usage
+- Install common scripts / aliases
+- Use more neovim features, eg) mason: https://github.com/williamboman/mason.nvim
