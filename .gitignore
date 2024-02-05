@@ -67,6 +67,8 @@ xdg_config_dir/transmission
 xdg_config_dir/Trolltech.conf
 xdg_config_dir/unity3d
 xdg_config_dir/update-notifier
+xdg_config_dir/user-dirs.dirs
+xdg_config_dir/user-dirs.locale
 xdg_config_dir/vim/bundle
 xdg_config_dir/VirtualBox
 xdg_config_dir/vlc
@@ -74,4 +76,3 @@ xdg_config_dir/wireshark
 xdg_config_dir/xbuild
 xdg_config_dir/zsh/.oh-my-zsh
 xdg_config_dir/zsh/.zcompdump*
-xdg_config_dir/user-dirs.dirs
