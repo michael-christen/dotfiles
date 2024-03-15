@@ -45,12 +45,15 @@ def install_packages(packages: List[str], dry_run: bool) -> None:
         print(f'Would install packages:\n{package_str}')
 
 
-def download_file(url: str, path: pathlib.Path, dry_run: bool) -> bool:
+def download_file(url: str, path: pathlib.Path, dry_run: bool, use_sudo: bool = False) -> bool:
     """Returns True if was already cached."""
     if path.exists():
         return True
     if not dry_run:
-        subprocess.run(['wget', '-O', path, url])
+        cmd = ['wget', '-O', path, url]
+        if use_sudo:
+            cmd = ['sudo'] + cmd
+        subprocess.run(cmd)
     else:
         print(f'Would download: {url} to {path}')
     return False
@@ -145,15 +148,16 @@ APT_PACKAGES = [
     'fish',
     # For docker, see https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
     # There are a few manual steps to setup the keyrings
-    'docker-ce',
-    'docker-ce-cli',
-    'containerd.io',
-    'docker-buildx-plugin',
-    'docker-compose-plugin',
-    # For rootless docker
-    'uidmap',
-    'dbus-user-session',
-    'docker-ce-rootless-extras',
+    # XXX: Couldn't install
+    # 'docker-ce',
+    # 'docker-ce-cli',
+    # 'containerd.io',
+    # 'docker-buildx-plugin',
+    # 'docker-compose-plugin',
+    # # For rootless docker
+    # 'uidmap',
+    # 'dbus-user-session',
+    # 'docker-ce-rootless-extras',
     # For ssl usage / rust
     'libssl-dev',
     # For rust embedded
@@ -165,6 +169,10 @@ APT_PACKAGES = [
     # 2 finger right click
     'xserver-xorg-input-synaptics',
     'gnome-tweaks',
+    # up/down workspace in Ubuntu
+    'gnome-shell-extension-manager',
+    # inotifywait, etc
+    'inotify-tools',
 ]
 
 # Define other packages to download and install
@@ -177,6 +185,8 @@ OTHER_PACKAGES = [
     'https://s3-us-west-2.amazonaws.com/digilent/Software/Digilent+Agent/1.0.1/digilent-agent_1.0.1-1_amd64.deb',
     # Install vscode
     'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64',
+    # rescuetime
+    'https://www.rescuetime.com/installers/rescuetime_current_amd64.deb',
 ]
 
 
@@ -194,7 +204,9 @@ def main():
     # Download keyrings
     download_file(url='https://syncthing.net/release-key.gpg',
                   path=pathlib.Path('/etc/apt/keyrings/syncthing-archive-keyring.gpg'),
-                  dry_run=args.dry_run)
+                  dry_run=args.dry_run,
+                  use_sudo=True,
+                  )
     # Add APT repositories
     for repo, url in APT_REPOSITORIES_WITH_URL:
         add_apt_repository(repo, url=url, dry_run=args.dry_run)

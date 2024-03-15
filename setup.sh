@@ -57,13 +57,14 @@ fi
 # Generate SSH Key
 # From
 # https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
-    echo "No ssh key exists, generating it now in $HOME/.ssh/id_rsa.pub!";
-    read -p "Enter github email address: " email_address
-    ssh-keygen -t rsa -b 4096 -C $email_address;
-    eval "$(ssh-agent -s)";
-    ssh-add $HOME/.ssh/id_rsa;
-fi
+# XXX: Allow ed
+# if [ ! -f $HOME/.ssh/id_rsa.pub ]; then
+#     echo "No ssh key exists, generating it now in $HOME/.ssh/id_rsa.pub!";
+#     read -p "Enter github email address: " email_address
+#     ssh-keygen -t rsa -b 4096 -C $email_address;
+#     eval "$(ssh-agent -s)";
+#     ssh-add $HOME/.ssh/id_rsa;
+# fi
 
 # TODO: Consider auto-pulling this and adding other crontab jobs
 # Setup cron
