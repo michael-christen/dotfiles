@@ -50,3 +50,26 @@ https://github.com/mark64/dotfiles, which takes advantage of the
 ## Future Plans / TODOs
 - auto-update the repo / improve crontab definitions
 - Use more neovim features, eg) mason: https://github.com/williamboman/mason.nvim
+
+XXX: tmux copy/paste is broken / tmux navigation from vim is too?
+
+## Log
+
+### 2024-03
+
+- Setup [obsidian.nvim](https://github.com/epwalsh/obsidian.nvim)
+  - caused
+  [restructuring of nvim plugins](https://github.com/folke/lazy.nvim?tab=readme-ov-file#-structuring-your-plugins)
+  - Even handles [`^` block links](https://help.obsidian.md/Linking+notes+and+files/Internal+links)
+  - note: <ctrl-k> then a motion shows what it is in vim
+  - add new fonts with [nerdfont](https://www.nerdfonts.com)
+    - list with `fc-list`
+    - install to ~/.local/share/fonts
+      - could do with [webi](https://github.com/webinstall/webi-installers)
+    - rebuild font cache `fc-cache -fv`
+    - update fonts used in system via gnome-tweaks, can script by doing it
+      there and watching with `dconf watch /`
+      - `dconf write /org/gnome/desktop/interface/monospace-font-name "'UbuntuMono Nerd Font Mono 13'"`
+    - update fonts used in [chrome settings > appearance > customize fonts](chrome://settings/fonts)
+      (Standard font) to "Ubuntu nerd font"
+      - https://github.com/ryanoasis/nerd-fonts/blob/master/bin/scripts/lib/i_oct.sh should show up
