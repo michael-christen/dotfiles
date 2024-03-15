@@ -87,6 +87,43 @@ def download_and_install_package(package_url: str, dry_run: bool, force: bool) -
             print(f'Would install package: {cached_package_path}')
 
 
+def configure_fonts(dry_run: bool) -> None:
+    cache_dir = pathlib.Path(os.environ.get(
+        'XDG_CACHE_HOME', pathlib.Path.home() / '.cache')) / 'fonts'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    ubuntu_zip = cache_dir / 'Ubuntu_v3.1.1.zip'
+    ubuntu_mono_zip = cache_dir / 'UbuntuMono_v3.1.1.zip'
+    zip_files = [ubuntu_zip, ubuntu_mono_zip]
+    was_cached = True
+    was_cached &= download_file(
+        'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.zip',
+        ubuntu_zip, dry_run=dry_run)
+    was_cached &= download_file(
+        'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/UbuntuMono.zip',
+        ubuntu_mono_zip, dry_run=dry_run)
+    font_dir = pathlib.Path(os.environ.get(
+        'XDG_DATA_HOME', pathlib.Path.home() / '.local/share')) / 'fonts'
+    font_dir.mkdir(parents=True, exist_ok=True)
+    if not was_cached:
+        # Unzip into font_dir
+        for zip_file in zip_files:
+            if not dry_run:
+                subprocess.run(['unzip', '-qq', zip_file, '-d', font_dir])
+            else:
+                print(f'Would have unzipped: {zip_file} to {font_dir}')
+        if not dry_run:
+            subprocess.run(['fc-cache', '-fv'])
+        else:
+            print('Would have reset font cache')
+    # Update gnome-tweaks
+    if not dry_run:
+        subprocess.run(['dconf', 'write',
+                        '/org/gnome/desktop/interface/monospace-font-name',
+                        '"UbuntuMono Nerd Font Mono 13"'])
+    else:
+        print('Would have changed monospace-font-name')
+
+
 def miscellaneous_commands(dry_run: bool) -> None:
     DESCRIPTION_W_CMD = [
         ('alias nvim to vim',
@@ -251,6 +288,7 @@ def main():
     for package in OTHER_PACKAGES:
         download_and_install_package(package, dry_run=args.dry_run,
                                      force=args.force)
+    configure_fonts(dry_run=args.dry_run)
     # Do other miscellaneous_commands
     miscellaneous_commands(dry_run=args.dry_run)
 
