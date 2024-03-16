@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 
 import argparse
 import os
@@ -8,16 +9,17 @@ import sys
 from typing import List
 
 
-def is_apt_repository_added(repo_url: str) -> bool:
+def is_apt_repository_added(repo_url: str | None) -> bool:
+    if repo_url is None:
+        return False
     try:
-        # XXX: not checking
         result = subprocess.run(['apt-cache', 'policy'], capture_output=True, text=True, check=True)
         return repo_url in result.stdout
     except subprocess.CalledProcessError:
         return False
 
 
-def add_apt_repository(repo: str, url: str, dry_run: bool) -> None:
+def add_apt_repository(repo: str, url: str | None, dry_run: bool) -> None:
     if is_apt_repository_added(url):
         print(f"APT repository '{repo}' is already added.")
         return
@@ -35,7 +37,7 @@ def update_apt(dry_run: bool) -> None:
         print('Would update APT')
 
 
-def install_packages(packages: List[str], dry_run: bool) -> None:
+def install_apt_packages(packages: List[str], dry_run: bool) -> None:
     if not dry_run:
         cmd = ['sudo', 'apt', 'install', '-y']
         cmd.extend(packages)
@@ -45,12 +47,26 @@ def install_packages(packages: List[str], dry_run: bool) -> None:
         print(f'Would install packages:\n{package_str}')
 
 
-def download_file(url: str, path: pathlib.Path, dry_run: bool) -> bool:
+def install_snap_packages(packages: List[str], dry_run: bool) -> None:
+    if not dry_run:
+        cmd = ['sudo', 'snap', 'install']
+        cmd.extend(packages)
+        subprocess.run(cmd)
+    else:
+        package_str = '\n'.join(packages)
+        print(f'Would install packages:\n{package_str}')
+
+
+def download_file(url: str, path: pathlib.Path, dry_run: bool,
+                  use_sudo: bool = False) -> bool:
     """Returns True if was already cached."""
     if path.exists():
         return True
     if not dry_run:
-        subprocess.run(['wget', '-O', path, url])
+        cmd = ['wget', '-O', path, url]
+        if use_sudo:
+            cmd = ['sudo'] + cmd
+        subprocess.run(cmd)
     else:
         print(f'Would download: {url} to {path}')
     return False
@@ -71,8 +87,61 @@ def download_and_install_package(package_url: str, dry_run: bool, force: bool) -
             print(f'Would install package: {cached_package_path}')
 
 
+def configure_fonts(dry_run: bool) -> None:
+    cache_dir = pathlib.Path(os.environ.get(
+        'XDG_CACHE_HOME', pathlib.Path.home() / '.cache')) / 'fonts'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    ubuntu_zip = cache_dir / 'Ubuntu_v3.1.1.zip'
+    ubuntu_mono_zip = cache_dir / 'UbuntuMono_v3.1.1.zip'
+    zip_files = [ubuntu_zip, ubuntu_mono_zip]
+    was_cached = True
+    was_cached &= download_file(
+        'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.zip',
+        ubuntu_zip, dry_run=dry_run)
+    was_cached &= download_file(
+        'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/UbuntuMono.zip',
+        ubuntu_mono_zip, dry_run=dry_run)
+    font_dir = pathlib.Path(os.environ.get(
+        'XDG_DATA_HOME', pathlib.Path.home() / '.local/share')) / 'fonts'
+    font_dir.mkdir(parents=True, exist_ok=True)
+    if not was_cached:
+        # Unzip into font_dir
+        for zip_file in zip_files:
+            if not dry_run:
+                subprocess.run(['unzip', '-qq', zip_file, '-d', font_dir])
+            else:
+                print(f'Would have unzipped: {zip_file} to {font_dir}')
+        if not dry_run:
+            subprocess.run(['fc-cache', '-fv'])
+        else:
+            print('Would have reset font cache')
+    # Update gnome-tweaks
+    if not dry_run:
+        subprocess.run(['dconf', 'write',
+                        '/org/gnome/desktop/interface/monospace-font-name',
+                        '"UbuntuMono Nerd Font Mono 13"'])
+    else:
+        print('Would have changed monospace-font-name')
+
+
+def miscellaneous_commands(dry_run: bool) -> None:
+    DESCRIPTION_W_CMD = [
+        ('alias nvim to vim',
+         ['sudo', 'snap', 'alias', 'nvim', 'vim']),
+        # NOTE: Requires reboot
+        ('update locale for fonts',
+         ['sudo', 'update-locale', 'LANG=en_US.UTF-8', 'LANGUAGE=en_US.UTF-8']),
+    ]
+    for description, cmd in DESCRIPTION_W_CMD:
+        if not dry_run:
+            subprocess.run(cmd)
+        else:
+            print(f'Would: {description}')
+
+
 # Define APT repositories
 APT_REPOSITORIES_WITH_URL = [
+    # XXX: Try out 8.0
     ('ppa:kicad/kicad-7.0-releases',
      'http://ppa.launchpad.net/kicad/kicad-7.0-releases/ubuntu'),
     ('ppa:fish-shell/release-3',
@@ -80,17 +149,14 @@ APT_REPOSITORIES_WITH_URL = [
     # syncthing, necessitates setting this up
     ('deb [signed-by=/etc/apt/keyrings/syncthing-archive-keyring.gpg] https://apt.syncthing.net/ syncthing stable',
      'https://apt.syncthing.net'),
-
-
-
+    ('ppa:appimagelauncher-team/stable',
+     'https://ppa.launchpadcontent.net/appimagelauncher-team/stable/ubuntu'),
 ]
 
 # Define packages to install from APT repositories
 APT_PACKAGES = [
     # TODO: versions?
     # Maybe ctags and clang-format?
-    'neovim',
-    'git',
     'tmux',
     'htop',
     'xclip',
@@ -165,6 +231,12 @@ APT_PACKAGES = [
     # 2 finger right click
     'xserver-xorg-input-synaptics',
     'gnome-tweaks',
+    # obsidian app installed as appImage should be placed in favorites bar
+    'appimagelauncher',
+]
+
+SNAP_PACKAGES = [
+    'nvim',
 ]
 
 # Define other packages to download and install
@@ -177,6 +249,10 @@ OTHER_PACKAGES = [
     'https://s3-us-west-2.amazonaws.com/digilent/Software/Digilent+Agent/1.0.1/digilent-agent_1.0.1-1_amd64.deb',
     # Install vscode
     'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64',
+    # CKAN for KSP
+    'https://github.com/KSP-CKAN/CKAN/releases/download/v1.34.4/ckan_1.34.4_all.deb',
+    # Rescuetime
+    'https://www.rescuetime.com/installers/rescuetime_current_amd64.deb',
 ]
 
 
@@ -194,7 +270,8 @@ def main():
     # Download keyrings
     download_file(url='https://syncthing.net/release-key.gpg',
                   path=pathlib.Path('/etc/apt/keyrings/syncthing-archive-keyring.gpg'),
-                  dry_run=args.dry_run)
+                  dry_run=args.dry_run,
+                  use_sudo=True)
     # Add APT repositories
     for repo, url in APT_REPOSITORIES_WITH_URL:
         add_apt_repository(repo, url=url, dry_run=args.dry_run)
@@ -203,13 +280,17 @@ def main():
     # TODO: Takes a significant amount of time
     # update_apt(dry_run=args.dry_run)
 
-    # Install packages from APT repositories
-    install_packages(APT_PACKAGES, dry_run=args.dry_run)
+    # Install packages from APT & SNAP repositories
+    install_apt_packages(APT_PACKAGES, dry_run=args.dry_run)
+    install_snap_packages(SNAP_PACKAGES, dry_run=args.dry_run)
 
     # Download and install other packages
     for package in OTHER_PACKAGES:
         download_and_install_package(package, dry_run=args.dry_run,
                                      force=args.force)
+    configure_fonts(dry_run=args.dry_run)
+    # Do other miscellaneous_commands
+    miscellaneous_commands(dry_run=args.dry_run)
 
 
 if __name__ == '__main__':
