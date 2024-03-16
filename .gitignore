@@ -65,6 +65,7 @@ xdg_config_dir/Signal
 xdg_config_dir/Slack
 xdg_config_dir/smplayer
 xdg_config_dir/syncthing
+xdg_config_dir/systemd
 xdg_config_dir/tilda
 xdg_config_dir/tmux/plugins
 xdg_config_dir/transmission
