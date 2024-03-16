@@ -21,6 +21,9 @@ return {
 
     cmp.setup({
       completion = {
+        -- Set to not popup menus every time
+        -- autocomplete = fasle,
+        -- Alternatively, show most times
         completeopt = "menu,menuone,preview,noselect",
       },
       snippet = { -- configure how nvim-cmp interacts with snippet engine
