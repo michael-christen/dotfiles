@@ -141,7 +141,7 @@ def miscellaneous_commands(dry_run: bool) -> None:
 
 # Define APT repositories
 APT_REPOSITORIES_WITH_URL = [
-    # XXX: Try out 8.0
+    # TODO(#30): Try out 8.0
     ('ppa:kicad/kicad-7.0-releases',
      'http://ppa.launchpad.net/kicad/kicad-7.0-releases/ubuntu'),
     ('ppa:fish-shell/release-3',
@@ -211,7 +211,7 @@ APT_PACKAGES = [
     'fish',
     # For docker, see https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
     # There are a few manual steps to setup the keyrings
-    # XXX: Couldn't install
+    # TODO(#33): Couldn't install
     # 'docker-ce',
     # 'docker-ce-cli',
     # 'containerd.io',
@@ -268,7 +268,6 @@ def main():
     args = parser.parse_args()
 
     # Request sudo permissions if not running in dry-run mode
-    # XXX: Probably be better about anouncing this
     if not args.dry_run:
         subprocess.run(['sudo', '-v'], check=True)
 
@@ -276,8 +275,7 @@ def main():
     download_file(url='https://syncthing.net/release-key.gpg',
                   path=pathlib.Path('/etc/apt/keyrings/syncthing-archive-keyring.gpg'),
                   dry_run=args.dry_run,
-                  use_sudo=True,
-                  )
+                  use_sudo=True)
     # Add APT repositories
     for repo, url in APT_REPOSITORIES_WITH_URL:
         add_apt_repository(repo, url=url, dry_run=args.dry_run)
