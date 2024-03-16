@@ -45,11 +45,9 @@ return {
         { name = "path" }, -- file system paths
       }),
       -- configure lspkind for vs-code like pictograms in completion menu
-	  -- XXX: This is the bit causing the unicode problems, should add nerd
-	  -- font install to install_packages.py
       formatting = {
         format = lspkind.cmp_format({
-		  mode = 'symbol', -- show only symbol annotations
+          mode = 'symbol', -- show only symbol annotations
           maxwidth = 50,
           ellipsis_char = "...",
         }),

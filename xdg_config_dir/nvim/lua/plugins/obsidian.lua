@@ -16,7 +16,6 @@ return {
     -- for completion of note references
     "hrsh7th/nvim-cmp",
     -- for search and quick-switch functionality
-	-- XXX: Should setup file finding
     "nvim-telescope/telescope.nvim",
     -- for markdown syntax highlighting
     "nvim-treesitter/nvim-treesitter",
@@ -25,7 +24,6 @@ return {
     workspaces = {
       {
         name = "main",
-  	  -- XXX: We'll need to alias or something for work vs. home
         path = "~/notes",
       },
     },
