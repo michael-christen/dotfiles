@@ -20,6 +20,6 @@
   "plenary.nvim": { "branch": "master", "commit": "f7adfc4b3f4f91aab6caebf42b3682945fbc35be" },
   "pomo.nvim": { "branch": "main", "commit": "5304d5692ad049ada5cfd70f1d66a704a6ec4971" },
   "telescope.nvim": { "branch": "master", "commit": "67c598fdd4fca113224281c85721c4d8a6df055e" },
-  "vim-devicons": { "branch": "master", "commit": "71f239af28b7214eebb60d4ea5bd040291fb7e33" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "38b1d0402c4600543281dc85b3f51884205674b6" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
 }
