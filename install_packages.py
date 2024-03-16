@@ -141,7 +141,7 @@ def miscellaneous_commands(dry_run: bool) -> None:
 
 # Define APT repositories
 APT_REPOSITORIES_WITH_URL = [
-    # XXX: Try out 8.0
+    # TODO(#30): Try out 8.0
     ('ppa:kicad/kicad-7.0-releases',
      'http://ppa.launchpad.net/kicad/kicad-7.0-releases/ubuntu'),
     ('ppa:fish-shell/release-3',
@@ -211,15 +211,16 @@ APT_PACKAGES = [
     'fish',
     # For docker, see https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
     # There are a few manual steps to setup the keyrings
-    'docker-ce',
-    'docker-ce-cli',
-    'containerd.io',
-    'docker-buildx-plugin',
-    'docker-compose-plugin',
-    # For rootless docker
-    'uidmap',
-    'dbus-user-session',
-    'docker-ce-rootless-extras',
+    # TODO(#33): Couldn't install
+    # 'docker-ce',
+    # 'docker-ce-cli',
+    # 'containerd.io',
+    # 'docker-buildx-plugin',
+    # 'docker-compose-plugin',
+    # # For rootless docker
+    # 'uidmap',
+    # 'dbus-user-session',
+    # 'docker-ce-rootless-extras',
     # For ssl usage / rust
     'libssl-dev',
     # For rust embedded
@@ -231,6 +232,10 @@ APT_PACKAGES = [
     # 2 finger right click
     'xserver-xorg-input-synaptics',
     'gnome-tweaks',
+    # up/down workspace in Ubuntu
+    'gnome-shell-extension-manager',
+    # inotifywait, etc
+    'inotify-tools',
     # obsidian app installed as appImage should be placed in favorites bar
     'appimagelauncher',
 ]
@@ -263,7 +268,6 @@ def main():
     args = parser.parse_args()
 
     # Request sudo permissions if not running in dry-run mode
-    # XXX: Probably be better about anouncing this
     if not args.dry_run:
         subprocess.run(['sudo', '-v'], check=True)
 

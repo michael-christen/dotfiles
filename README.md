@@ -50,3 +50,42 @@ https://github.com/mark64/dotfiles, which takes advantage of the
 ## Future Plans / TODOs
 - auto-update the repo / improve crontab definitions
 - Use more neovim features, eg) mason: https://github.com/williamboman/mason.nvim
+
+## Other Manual Steps
+
+### GPG Key signing
+```
+# Follow defaults, enter user info and passphrase
+gpg --full-generate-key
+
+# List and copy key id, looking for sec rsa.../<key>
+gpg --list-secret-keys --keyid-format=long
+
+# Export
+gpg --armor --export <key>
+
+# Add to github
+
+# Update user git config
+git config --global --unset gpg.format
+# eg, write
+[user]
+	signingkey = 69F1D7374821253F
+[commit]
+	gpgsign = true
+
+# to xdg_config_dir/git/userconfig
+
+# to xdg_config_dir/userprofile
+# XXX: or should it be a .rc?
+# GPG_TTY=$(tty)
+# pgrep gpg-agent > /dev/null || /usr/bin/gpg-agent
+
+# Cache GPG key 2 hours at a time instead of asking for password regularly
+mkdir -p ~/.gnupg
+echo -e "\ndefault-cache-ttl 7200\nmax-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+# Restart GPG agent to apply changes
+gpgconf --reload gpg-agent
+
+# can setup gh with gh auth login -p ssh -h $GH_HOST --web
+```

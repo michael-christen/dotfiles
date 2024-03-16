@@ -48,6 +48,8 @@ function tag_version() {
 }
 
 alias v=vim
+# Add --review [required|approved|changes_requested] to filter
+# gh pr status also works for a similar effect
 alias my-prs='gh search prs --state open --author @me'
 alias completed-reviews='gh search prs --state open --reviewed-by @me'
 alias pending-reviews='gh search prs --state open --review-requested @me'
