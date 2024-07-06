@@ -49,7 +49,7 @@ def install_apt_packages(packages: List[str], dry_run: bool) -> None:
 
 def install_snap_packages(packages: List[str], dry_run: bool) -> None:
     if not dry_run:
-        cmd = ['sudo', 'snap', 'install']
+        cmd = ['sudo', 'snap', 'install', '--classic']
         cmd.extend(packages)
         subprocess.run(cmd)
     else:
@@ -83,6 +83,22 @@ def download_and_install_package(package_url: str, dry_run: bool, force: bool) -
         if not dry_run:
             subprocess.run(['sudo', 'dpkg', '-i', cached_package_path])
             subprocess.run(['sudo', 'apt', 'install', '-f', '-y'])
+        else:
+            print(f'Would install package: {cached_package_path}')
+
+
+def download_and_install_app_image(app_image_url: str, dry_run: bool, force: bool) -> None:
+    package_name = pathlib.Path(app_image_url).name
+    # XXX: Should I move to a more permanent location?
+    cache_dir = pathlib.Path(os.environ.get(
+        'XDG_CACHE_HOME', pathlib.Path.home() / '.cache')) / 'app_images'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cached_package_path = cache_dir / package_name
+    was_cached = download_file(url=app_image_url, path=cached_package_path, dry_run=dry_run)
+    if force or not was_cached:
+        os.chmod(cached_package_path, 0o775)
+        if not dry_run:
+            subprocess.run([cached_package_path, '--appimage-extract'])
         else:
             print(f'Would install package: {cached_package_path}')
 
@@ -151,6 +167,10 @@ APT_REPOSITORIES_WITH_URL = [
      'https://apt.syncthing.net'),
     ('ppa:appimagelauncher-team/stable',
      'https://ppa.launchpadcontent.net/appimagelauncher-team/stable/ubuntu'),
+    # github cli
+    # XXX: Not quite working
+    # ('deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main',
+    #  'https://cli.github.com/packages'),
 ]
 
 # Define packages to install from APT repositories
@@ -238,6 +258,16 @@ APT_PACKAGES = [
     'inotify-tools',
     # obsidian app installed as appImage should be placed in favorites bar
     'appimagelauncher',
+    # obsidian.nvim ObsidianPasteImage expects wl-paste
+    'wl-clipboard',
+    # dot / graphviz renderings
+    'graphviz',
+    # bambu video
+    'gstreamer1.0-plugins-bad',
+    # image editing
+    'gimp',
+    # github CLI for octo.nvim integration
+    'gh',
 ]
 
 SNAP_PACKAGES = [
@@ -258,6 +288,12 @@ OTHER_PACKAGES = [
     'https://github.com/KSP-CKAN/CKAN/releases/download/v1.34.4/ckan_1.34.4_all.deb',
     # Rescuetime
     'https://www.rescuetime.com/installers/rescuetime_current_amd64.deb',
+    # obsidian
+    'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/obsidian_1.5.8_amd64.deb',
+]
+
+APP_IMAGES = [
+    'https://github.com/bambulab/BambuStudio/releases/download/v01.09.00.70/Bambu_Studio_linux_ubuntu-v01.09.00.70.AppImage',
 ]
 
 
@@ -276,6 +312,11 @@ def main():
                   path=pathlib.Path('/etc/apt/keyrings/syncthing-archive-keyring.gpg'),
                   dry_run=args.dry_run,
                   use_sudo=True)
+    download_file(url='https://cli.github.com/packages/githubcli-archive-keyring.gpg',
+                  path=pathlib.Path('/etc/apt/keyrings/githubcli-archive-keyring.gpg'),
+                  dry_run=args.dry_run,
+                  use_sudo=True)
+
     # Add APT repositories
     for repo, url in APT_REPOSITORIES_WITH_URL:
         add_apt_repository(repo, url=url, dry_run=args.dry_run)
@@ -292,6 +333,11 @@ def main():
     for package in OTHER_PACKAGES:
         download_and_install_package(package, dry_run=args.dry_run,
                                      force=args.force)
+    # Download and install AppImages
+    for app_image in APP_IMAGES:
+        download_and_install_app_image(app_image, dry_run=args.dry_run,
+                                       force=args.force)
+
     configure_fonts(dry_run=args.dry_run)
     # Do other miscellaneous_commands
     miscellaneous_commands(dry_run=args.dry_run)

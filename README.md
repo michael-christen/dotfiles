@@ -89,3 +89,6 @@ gpgconf --reload gpg-agent
 
 # can setup gh with gh auth login -p ssh -h $GH_HOST --web
 ```
+
+### TODO
+- [ ] completion not using other open files to complete now

@@ -27,5 +27,8 @@ return {
         path = "~/notes",
       },
     },
+    attachments = {
+      img_folder = "media",
+    },
   },
 }
