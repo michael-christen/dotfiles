@@ -35,6 +35,7 @@ xdg_config_dir/Gpredict
 xdg_config_dir/gsconnect
 xdg_config_dir/.gsd-keyboard.settings-ported
 xdg_config_dir/guvcview2
+xdg_config_dir/helm
 xdg_config_dir/htop
 xdg_config_dir/ibus
 xdg_config_dir/inkscape
