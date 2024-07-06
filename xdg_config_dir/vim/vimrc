@@ -348,6 +348,9 @@ augroup configgroup
     autocmd BufEnter *.prototxt setlocal tabstop=2
     autocmd BufEnter *.prototxt setlocal shiftwidth=2
     autocmd BufEnter *.prototxt setlocal softtabstop=2
+    autocmd BufEnter *.lua setlocal tabstop=2
+    autocmd BufEnter *.lua setlocal shiftwidth=2
+    autocmd BufEnter *.lua setlocal softtabstop=2
     autocmd BufRead,BUfNewFile *.txt set syntax=jinja
     " Set cursor back to where you were last time you opened a file
     autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
