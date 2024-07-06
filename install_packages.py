@@ -87,6 +87,22 @@ def download_and_install_package(package_url: str, dry_run: bool, force: bool) -
             print(f'Would install package: {cached_package_path}')
 
 
+def download_and_install_app_image(app_image_url: str, dry_run: bool, force: bool) -> None:
+    package_name = pathlib.Path(app_image_url).name
+    # XXX: Should I move to a more permanent location?
+    cache_dir = pathlib.Path(os.environ.get(
+        'XDG_CACHE_HOME', pathlib.Path.home() / '.cache')) / 'app_images'
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cached_package_path = cache_dir / package_name
+    was_cached = download_file(url=app_image_url, path=cached_package_path, dry_run=dry_run)
+    if force or not was_cached:
+        os.chmod(cached_package_path, 0o775)
+        if not dry_run:
+            subprocess.run([cached_package_path, '--appimage-extract'])
+        else:
+            print(f'Would install package: {cached_package_path}')
+
+
 def configure_fonts(dry_run: bool) -> None:
     cache_dir = pathlib.Path(os.environ.get(
         'XDG_CACHE_HOME', pathlib.Path.home() / '.cache')) / 'fonts'
@@ -238,6 +254,14 @@ APT_PACKAGES = [
     'inotify-tools',
     # obsidian app installed as appImage should be placed in favorites bar
     'appimagelauncher',
+    # obsidian.nvim ObsidianPasteImage expects wl-paste
+    'wl-clipboard',
+    # dot / graphviz renderings
+    'graphviz',
+    # bambu video
+    'gstreamer1.0-plugins-bad',
+    # image editing
+    'gimp',
 ]
 
 SNAP_PACKAGES = [
@@ -258,6 +282,10 @@ OTHER_PACKAGES = [
     'https://github.com/KSP-CKAN/CKAN/releases/download/v1.34.4/ckan_1.34.4_all.deb',
     # Rescuetime
     'https://www.rescuetime.com/installers/rescuetime_current_amd64.deb',
+]
+
+APP_IMAGES = [
+    'https://github.com/bambulab/BambuStudio/releases/download/v01.09.00.70/Bambu_Studio_linux_ubuntu-v01.09.00.70.AppImage',
 ]
 
 
@@ -292,6 +320,11 @@ def main():
     for package in OTHER_PACKAGES:
         download_and_install_package(package, dry_run=args.dry_run,
                                      force=args.force)
+    # Download and install AppImages
+    for app_image in APP_IMAGES:
+        download_and_install_app_image(app_image, dry_run=args.dry_run,
+                                       force=args.force)
+
     configure_fonts(dry_run=args.dry_run)
     # Do other miscellaneous_commands
     miscellaneous_commands(dry_run=args.dry_run)
