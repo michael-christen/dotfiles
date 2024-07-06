@@ -1,9 +1,11 @@
 linked_config/ssh/user_authorized_keys
+squashfs-root/
 xdg_config_dir/arduino-ide
 xdg_config_dir/Arduino\ IDE
 xdg_config_dir/atril
 xdg_config_dir/autostart/fluxgui.desktop
 xdg_config_dir/autostart/xbacklight.desktop
+xdg_config_dir/BambuStudioBeta
 xdg_config_dir/blender
 xdg_config_dir/BraveSoftware
 xdg_config_dir/caja
@@ -14,6 +16,7 @@ xdg_config_dir/configstore
 xdg_config_dir/dconf
 xdg_config_dir/deluge
 xdg_config_dir/evolution
+xdg_config_dir/evince
 xdg_config_dir/folder-color
 xdg_config_dir/freerdp
 xdg_config_dir/gatsby
