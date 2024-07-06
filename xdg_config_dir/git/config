@@ -9,6 +9,7 @@
     df = diff
     lo = log --oneline
     lg = log -p
+    lm = log --no-merges --author=christen
     log-detail = log -p
     rim = rebase -i master
     commend = commit --amend --no-edit

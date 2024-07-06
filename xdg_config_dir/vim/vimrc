@@ -165,6 +165,11 @@ autocmd FileType c,cpp,java let g:clang_format#auto_format = 1
 let g:ycm_extra_conf_globlist = ['~/devel/monorepo/*', '~/devel/ee-test/*']
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+" PRs
+map <leader>prt :Octo pr search state:open review-requested:@me<CR>
+map <leader>prm :Octo pr search state:open author:@me<CR>
+
+
 " CtrlP settings
 let g:ctrlp_max_files = 0                                         " no limit when scanning files
 let g:ctrlp_match_window = 'bottom,order:ttb,result:0,max:30'    " Where to place the matching window

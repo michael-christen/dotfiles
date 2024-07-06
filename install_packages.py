@@ -49,7 +49,7 @@ def install_apt_packages(packages: List[str], dry_run: bool) -> None:
 
 def install_snap_packages(packages: List[str], dry_run: bool) -> None:
     if not dry_run:
-        cmd = ['sudo', 'snap', 'install']
+        cmd = ['sudo', 'snap', 'install', '--classic']
         cmd.extend(packages)
         subprocess.run(cmd)
     else:
@@ -282,6 +282,8 @@ OTHER_PACKAGES = [
     'https://github.com/KSP-CKAN/CKAN/releases/download/v1.34.4/ckan_1.34.4_all.deb',
     # Rescuetime
     'https://www.rescuetime.com/installers/rescuetime_current_amd64.deb',
+    # obsidian
+    'https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/obsidian_1.5.8_amd64.deb',
 ]
 
 APP_IMAGES = [
