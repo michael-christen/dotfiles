@@ -167,6 +167,10 @@ APT_REPOSITORIES_WITH_URL = [
      'https://apt.syncthing.net'),
     ('ppa:appimagelauncher-team/stable',
      'https://ppa.launchpadcontent.net/appimagelauncher-team/stable/ubuntu'),
+    # github cli
+    # XXX: Not quite working
+    # ('deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main',
+    #  'https://cli.github.com/packages'),
 ]
 
 # Define packages to install from APT repositories
@@ -262,6 +266,8 @@ APT_PACKAGES = [
     'gstreamer1.0-plugins-bad',
     # image editing
     'gimp',
+    # github CLI for octo.nvim integration
+    'gh',
 ]
 
 SNAP_PACKAGES = [
@@ -306,6 +312,11 @@ def main():
                   path=pathlib.Path('/etc/apt/keyrings/syncthing-archive-keyring.gpg'),
                   dry_run=args.dry_run,
                   use_sudo=True)
+    download_file(url='https://cli.github.com/packages/githubcli-archive-keyring.gpg',
+                  path=pathlib.Path('/etc/apt/keyrings/githubcli-archive-keyring.gpg'),
+                  dry_run=args.dry_run,
+                  use_sudo=True)
+
     # Add APT repositories
     for repo, url in APT_REPOSITORIES_WITH_URL:
         add_apt_repository(repo, url=url, dry_run=args.dry_run)
