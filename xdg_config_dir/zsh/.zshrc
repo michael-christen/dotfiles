@@ -118,3 +118,8 @@ USER_ALIASES=$XDG_CONFIG_HOME/user.aliases
 if [ -f $USER_ALIASES ]; then
     . $USER_ALIASES
 fi
+
+# Vim bindings in zsh
+bindkey -v
+# Keep ctrl-r search
+bindkey "^R" history-incremental-search-backward

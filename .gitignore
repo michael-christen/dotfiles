@@ -87,3 +87,11 @@ xdg_config_dir/wireshark
 xdg_config_dir/xbuild
 xdg_config_dir/zsh/.oh-my-zsh
 xdg_config_dir/zsh/.zcompdump*
+xdg_config_dir/1Password
+xdg_config_dir/act
+xdg_config_dir/draw.io
+xdg_config_dir/flameshot
+xdg_config_dir/microsoft-edge-dev
+xdg_config_dir/s-tui
+xdg_config_dir/vivaldi
+xdg_config_dir/vivaldi-snapshot

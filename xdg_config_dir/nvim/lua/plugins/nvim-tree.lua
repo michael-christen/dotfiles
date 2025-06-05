@@ -52,6 +52,8 @@ return {
 
     -- set keymaps
     local keymap = vim.keymap -- for conciseness
+    -- <ctrl>-v = open vertical split
+    -- <ctrl>-x = open horizontal split
 
     -- TODO(#31): Aren't working
     keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
