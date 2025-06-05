@@ -262,7 +262,14 @@ nnoremap <c-l> <c-w>l
 nnoremap <CR> o<ESC>k
 " Insert current date
 nnoremap <leader>cd "=strftime('%Y-%m-%d, %A')<CR>pa:<ESC>
-nnoremap <leader>ct "=strftime('%Y-%m-%d, %A; %H:%M:%S')<CR>pa:<ESC>
+" Insert current date without day spelled out
+nnoremap <leader>csd "=strftime('%Y-%m-%d')<CR>p
+" Insert current date without day spelled out, prefixed by ➕
+" create task
+nnoremap <leader>mt ^a [ ]<ESC>$a ➕ <ESC>"=strftime('%Y-%m-%d')<CR>p
+nnoremap <leader>ft ^lllrx$a ✅ <ESC>"=strftime('%Y-%m-%d')<CR>p
+" Insert current time
+nnoremap <leader>ct "=strftime('%H:%M:%S')<CR>p
 nnoremap <leader>h4 "pa#### <ESC>
 
 " Configure ctags for tag jumping

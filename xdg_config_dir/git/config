@@ -60,3 +60,5 @@
 [include]
     # Allow overrides by putting any in untracked userconfig
     path = userconfig
+[commit]
+    gpgsign = true
