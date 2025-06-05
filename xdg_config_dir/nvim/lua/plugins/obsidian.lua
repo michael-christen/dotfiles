@@ -1,5 +1,6 @@
 return {
   "epwalsh/obsidian.nvim",
+  enabled = false, -- XXX: Makes ediiting large files, like logs, very annoying
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",

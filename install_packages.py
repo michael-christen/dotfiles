@@ -268,6 +268,11 @@ APT_PACKAGES = [
     'gimp',
     # github CLI for octo.nvim integration
     'gh',
+    # kubectl
+    'apt-transport-https',
+    'ca-certificates',
+    'curl',
+    'gnupg',
 ]
 
 SNAP_PACKAGES = [

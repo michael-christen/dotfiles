@@ -14,4 +14,6 @@ return {
       require("refactoring").setup()
     end,
   },
+  { "nathangrigg/vim-beancount" },
+  -- {"bazelbuild/vim-bazel", lazy = true },
 }
