@@ -48,6 +48,8 @@ xdg_config_dir/google-chrome
 xdg_config_dir/google-chrome-beta
 xdg_config_dir/google-chrome-unstable
 xdg_config_dir/gsconnect
+xdg_config_dir/gtk-2.0
+xdg_config_dir/gtk-3.0
 xdg_config_dir/guvcview2
 xdg_config_dir/helm
 xdg_config_dir/htop
@@ -82,6 +84,7 @@ xdg_config_dir/syncthing
 xdg_config_dir/systemd
 xdg_config_dir/tilda
 xdg_config_dir/tmux/plugins
+xdg_config_dir/totem
 xdg_config_dir/transmission
 xdg_config_dir/unity3d
 xdg_config_dir/update-notifier
