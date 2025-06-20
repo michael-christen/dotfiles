@@ -38,6 +38,7 @@ https://github.com/mark64/dotfiles, which takes advantage of the
   - `userprofile` -> `~/.profile`
   - `user.aliases` -> `shared.aliases`
   - `linked_config/ssh/user_authorized_keys` -> `~/.ssh/authorized_keys`
+  - `~/.ssh/config.d/*` -> will be included with `linked_config/ssh/config`
 - requires installation of several system utilities, see
   https://github.com/michael-christen/toolbox/blob/35af433e6c955fd6bc50b4a98d4ca8576d5bfdb6/ansible_playbooks/dev_setup.yaml
   for an example
